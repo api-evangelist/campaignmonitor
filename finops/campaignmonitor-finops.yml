@@ -1,0 +1,67 @@
+name: Campaign Monitor FinOps
+description: FinOps Framework FOCUS-aligned cost and usage tracking for Campaign Monitor email marketing platform API usage.
+version: '1.0'
+url: https://www.campaignmonitor.com/pricing/
+provider: Campaign Monitor
+billingModel: subscription-plus-usage
+currency: USD
+costDrivers:
+  - name: Active Contacts
+    description: Monthly subscription cost scales with the number of active contacts in your account across all lists.
+    unit: contacts
+    notes: Contacts are de-duplicated across lists. Pricing tiers increase as contact counts grow.
+    tiers:
+      - range: '0-500'
+        litePriceUSD: 13
+        essentialsPriceUSD: 31
+        premierPriceUSD: 171
+      - range: '501-2500'
+        litePriceUSD: 29
+        essentialsPriceUSD: 49
+        premierPriceUSD: 209
+      - range: '2501-5000'
+        litePriceUSD: 49
+        essentialsPriceUSD: 69
+        premierPriceUSD: 249
+      - range: '5001-10000'
+        litePriceUSD: 74
+        essentialsPriceUSD: 89
+        premierPriceUSD: 289
+  - name: Email Sends (Lite Plan)
+    description: Lite plan includes a monthly send cap of approximately 5x the contact count. Overage may require upgrading.
+    unit: emails-sent
+    applicablePlans:
+      - Lite
+    notes: Essentials and Premier plans include unlimited sends.
+  - name: Website Builder Add-on
+    description: Optional add-on for Lite and Essentials plans. Included with Premier.
+    unit: add-on
+    priceUSD: 10
+    billingCycle: monthly
+    applicablePlans:
+      - Lite
+      - Essentials
+costOptimization:
+  - name: Right-size Plan
+    description: Evaluate monthly email send volume against the Lite cap (5x contacts). If regularly exceeding, Essentials provides better value with unlimited sends.
+  - name: Contact List Hygiene
+    description: Regularly unsubscribe or remove inactive contacts to keep billed contact count low and reduce monthly cost.
+  - name: Annual Billing Discount
+    description: Check for annual billing discounts which may reduce per-month cost compared to month-to-month plans.
+  - name: Monitor API Usage
+    description: Track transactional email volume through API rate limit headers to avoid unexpected sends and associated costs.
+  - name: Suppress Unengaged Subscribers
+    description: Use Campaign Monitor's engagement segment tools to suppress unengaged subscribers, reducing contact count and improving deliverability.
+focusAlignment:
+  - dimension: ProviderName
+    value: Campaign Monitor
+  - dimension: ServiceName
+    value: Email Marketing Platform
+  - dimension: ServiceCategory
+    value: Email Marketing
+  - dimension: BillingAccountId
+    description: Campaign Monitor account ID found in Account Settings.
+  - dimension: ChargeType
+    value: Usage
+  - dimension: ChargeFrequency
+    value: Monthly

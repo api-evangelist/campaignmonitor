@@ -1,0 +1,65 @@
+aid: campaignmonitor
+name: Campaign Monitor
+description: Email marketing platform with a REST API for managing campaigns, subscriber lists, transactional emails, segments, and accessing campaign performance analytics.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/campaignmonitor/refs/heads/main/apis.yml
+created: '2026-06-13'
+modified: '2026-06-13'
+specificationVersion: '0.19'
+tags:
+  - Email Marketing
+  - Campaigns
+  - Subscribers
+  - Transactional Email
+  - Segments
+  - Newsletters
+  - Automation
+apis:
+  - aid: campaignmonitor:campaign-monitor-api
+    name: Campaign Monitor API
+    description: REST API for managing email campaigns, subscriber lists, transactional emails, segments, journeys, templates, and campaign performance analytics.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://www.campaignmonitor.com/api/
+    baseURL: https://api.createsend.com/api/v3.3/
+    tags:
+      - Email Marketing
+      - Campaigns
+      - Subscribers
+      - Transactional Email
+      - Segments
+      - Webhooks
+    properties:
+      - type: Documentation
+        url: https://www.campaignmonitor.com/api/v3-3/getting-started/
+      - type: OpenAPI
+        url: https://www.campaignmonitor.com/api/
+    contact:
+      - FN: Campaign Monitor Support
+        url: https://help.campaignmonitor.com/
+common:
+  - type: Website
+    url: https://www.campaignmonitor.com/
+  - type: Documentation
+    url: https://www.campaignmonitor.com/api/
+  - type: GitHubOrg
+    url: https://github.com/campaignmonitor
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/campaign-monitor
+  - type: Blog
+    url: https://www.campaignmonitor.com/blog/
+  - type: Pricing
+    url: https://www.campaignmonitor.com/pricing/
+  - type: StatusPage
+    url: https://status.campaignmonitor.com/
+  - type: X
+    url: https://x.com/campaignmonitor
+  - type: Plans
+    url: plans/campaignmonitor-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/campaignmonitor-rate-limits.yml
+  - type: FinOps
+    url: finops/campaignmonitor-finops.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

@@ -1,0 +1,31 @@
+name: Campaign Monitor API Rate Limits
+description: Rate limiting details for the Campaign Monitor API. Rate limits apply primarily to transactional endpoints. Standard REST endpoints do not publish explicit rate limits but headers are returned on all responses.
+version: '0.1'
+url: https://www.campaignmonitor.com/api/v3-3/getting-started/
+scope: transactional
+limits:
+  - name: Transactional Endpoint Rate Limit
+    description: All /transactional endpoints are subject to rate limiting. Exceeding the rate limit returns HTTP 429 Too Many Requests.
+    endpoint: /transactional/*
+    window: second
+    limit: 1
+    limitType: requests-per-second
+    notes: Bulk import endpoints may have separate limits. Contact Campaign Monitor support for exact burst allowances.
+  - name: Standard API Endpoints
+    description: Standard REST API endpoints (campaigns, subscribers, lists, segments, etc.) are not explicitly rate limited but subject to fair-use policies.
+    endpoint: /*
+    window: N/A
+    limit: N/A
+    limitType: fair-use
+    notes: No published hard limits for non-transactional endpoints.
+headers:
+  - name: X-RateLimit-Limit
+    description: Maximum number of requests allowed before the rate limit window resets.
+  - name: X-RateLimit-Remaining
+    description: Number of requests remaining in the current rate limit window.
+  - name: X-RateLimit-Reset
+    description: Number of seconds until the rate limit window resets.
+errors:
+  - code: 429
+    message: Too Many Requests
+    description: Returned when the rate limit is exceeded. Clients should implement exponential backoff and retry after the X-RateLimit-Reset duration.

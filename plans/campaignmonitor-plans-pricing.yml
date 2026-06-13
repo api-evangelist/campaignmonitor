@@ -1,0 +1,79 @@
+name: Campaign Monitor Plans and Pricing
+description: Pricing plans for Campaign Monitor email marketing platform, structured by contact count with varying feature access and email send limits.
+version: '0.1'
+url: https://www.campaignmonitor.com/pricing/
+plans:
+  - name: Free Trial
+    description: 30-day free trial with basic features and limited sends for up to 500 contacts.
+    url: https://www.campaignmonitor.com/pricing/
+    price: 0
+    currency: USD
+    billingCycle: monthly
+    trial: true
+    trialDays: 30
+    features:
+      - Drag-and-drop email builder
+      - Basic templates
+      - Segmentation tools
+      - Limited reporting
+      - Up to 500 contacts
+      - Up to 500 email sends
+  - name: Lite
+    description: Core email features for small businesses with a monthly send cap. Starts at $13/month for up to 500 contacts.
+    url: https://www.campaignmonitor.com/pricing/
+    price: 13
+    currency: USD
+    billingCycle: monthly
+    features:
+      - Core email features
+      - AI Writer
+      - Automated emails
+      - Custom coded templates
+      - Signup forms
+      - Monthly send cap (5x contact count)
+      - Contact-based pricing
+  - name: Essentials
+    description: Best value plan with unlimited email sends, priority support, and advanced features. Starts at $31/month for up to 500 contacts.
+    url: https://www.campaignmonitor.com/pricing/
+    price: 31
+    currency: USD
+    billingCycle: monthly
+    features:
+      - Everything in Lite
+      - Unlimited email sends
+      - Priority email support
+      - Unlimited AI access
+      - Unlimited automated emails
+      - Inbox preview testing
+      - Spam testing
+      - Timezone-based sending
+      - Countdown timers
+      - Multi-user access
+      - Contact-based pricing
+  - name: Premier
+    description: Advanced plan with send time optimization, pre-built segments, and website builder included. Starts at $171/month for up to 500 contacts.
+    url: https://www.campaignmonitor.com/pricing/
+    price: 171
+    currency: USD
+    billingCycle: monthly
+    features:
+      - Everything in Essentials
+      - Premier-level support
+      - Pre-built engagement segments
+      - Send time optimization
+      - Website builder (included)
+      - Contact-based pricing
+  - name: Enterprise
+    description: Custom enterprise plan with dedicated account management, multi-brand support, and proactive deliverability monitoring.
+    url: https://www.campaignmonitor.com/pricing/
+    price: 0
+    currency: USD
+    billingCycle: custom
+    custom: true
+    features:
+      - Everything in Premier
+      - Dedicated account manager
+      - Multi-brand management
+      - Proactive deliverability monitoring
+      - Quarterly business reviews
+      - Custom volume pricing
