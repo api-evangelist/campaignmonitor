@@ -1,0 +1,47 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "cm": "https://www.campaignmonitor.com/api/v3-3/",
+    "aid": "https://apis.io/aid#",
+    "Campaign": "cm:Campaign",
+    "SubscriberList": "cm:List",
+    "Subscriber": "cm:Subscriber",
+    "Segment": "cm:Segment",
+    "Template": "cm:Template",
+    "TransactionalEmail": "cm:Transactional",
+    "Journey": "cm:Journey",
+    "Webhook": "cm:Webhook",
+    "Client": "cm:Client",
+    "Account": "cm:Account",
+    "campaignId": "cm:campaignId",
+    "listId": "cm:listId",
+    "subscriberEmail": "cm:email",
+    "segmentId": "cm:segmentId",
+    "templateId": "cm:templateId",
+    "journeyId": "cm:journeyId",
+    "clientId": "cm:clientId",
+    "apiKey": "cm:apiKey",
+    "baseURL": {
+      "@id": "cm:baseURL",
+      "@type": "@id"
+    }
+  },
+  "@type": "APIReference",
+  "name": "Campaign Monitor API",
+  "description": "REST API for managing email campaigns, subscriber lists, transactional emails, segments, journeys, templates, and campaign performance analytics.",
+  "url": "https://www.campaignmonitor.com/api/",
+  "provider": {
+    "@type": "Organization",
+    "name": "Campaign Monitor",
+    "url": "https://www.campaignmonitor.com/",
+    "sameAs": [
+      "https://github.com/campaignmonitor",
+      "https://www.linkedin.com/company/campaign-monitor",
+      "https://x.com/campaignmonitor"
+    ]
+  },
+  "termsOfService": "https://www.campaignmonitor.com/terms/",
+  "documentation": "https://www.campaignmonitor.com/api/v3-3/getting-started/",
+  "version": "3.3",
+  "baseURL": "https://api.createsend.com/api/v3.3/"
+}
