@@ -1,43 +1,13 @@
 {
-  "name": "Campaign Monitor Blog",
-  "description": "Blog feed for Campaign Monitor covering email marketing, campaigns, automation, and industry insights.",
-  "url": "https://www.campaignmonitor.com/blog/",
-  "rss": "https://www.campaignmonitor.com/blog/feed/",
-  "retrieved": "2026-06-13",
-  "posts": [
-    {
-      "title": "How to improve email deliverability and reach more inboxes",
-      "url": "https://www.campaignmonitor.com/blog/how-to/improve-email-deliverability/",
-      "published": "2026-05-28",
-      "summary": "You can spend hours crafting the perfect email, nail the subject line, design a beautiful layout. Delivery and inbox placement differ \u2014 emails accepted by servers may still miss inboxes."
-    },
-    {
-      "title": "Migrating your Audiences from Mailchimp to Campaign Monitor",
-      "url": "https://www.campaignmonitor.com/blog/email-marketing/migrating-your-audiences-from-mailchimp-to-campaign-monitor/",
-      "published": "2026-05-14",
-      "summary": "Step-by-step guide for switching email platforms. Covers exporting audiences, downloading CSV files, creating lists, and mapping custom fields to maintain subscriber data seamlessly."
-    },
-    {
-      "title": "How email marketing for automotive businesses drives leads and sales",
-      "url": "https://www.campaignmonitor.com/blog/email-marketing-for-automotive-businesses",
-      "published": "2026-03-27",
-      "summary": "Examines how car dealerships leverage email to convert online research into test drives. Discusses promotional campaigns, transactional reminders, inventory alerts, and re-engagement strategies."
-    },
-    {
-      "title": "Announcing a Change of Company Details to Your Customers",
-      "url": "https://www.campaignmonitor.com/blog/email-marketing/announcing-a-change-of-company-details-to-your-customers/",
-      "published": "2026-03-25",
-      "summary": "Comprehensive guide with templates for rebrandings, mergers, and address changes. Emphasizes clarity in subject lines, reassuring messaging, and multi-touch communication strategies."
-    },
-    {
-      "title": "Best AI Marketing Tools for 2026",
-      "url": "https://www.campaignmonitor.com/blog/comparison/best-ai-marketing-tools/",
-      "published": "2026-01-23",
-      "summary": "Reviews 16+ AI platforms spanning email, content creation, SMS, automation, and analytics \u2014 with pricing, use cases, and feature comparisons."
-    }
-  ],
   "repo": "campaignmonitor",
   "feeds": [
+    {
+      "source": "https://www.campaignmonitor.com/blog/feed/",
+      "feed_url": "https://www.campaignmonitor.com/blog/feed/",
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    },
     {
       "source": "https://www.linkedin.com/company/campaign-monitor",
       "feed_url": "https://www.linkedin.com/company/campaign-monitor",
@@ -46,6 +16,6 @@
       "method": "none"
     }
   ],
-  "post_count": 0,
-  "fetched": "2026-06-14T20:42:17Z"
+  "fetched": "2026-06-27T12:03:07Z",
+  "post_count": 0
 }
