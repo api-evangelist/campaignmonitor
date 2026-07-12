@@ -1,0 +1,39 @@
+generated: '2026-07-11'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: www.campaignmonitor.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Aug 18 12:31:01 2026 GMT
+  hsts: false
+- host: api.createsend.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Dec  1 05:47:35 2026 GMT
+  hsts: null
+domains:
+- domain: campaignmonitor.com
+  dnssec: false
+  caa:
+  - 0 issue "comodoca.com"
+  - 0 issuewild "digicert.com"
+  - 0 issuewild "amazon.com"
+  - 0 issue "geotrust.com"
+  - 0 issue "letsencrypt.org"
+  - 0 issue "amazon.com"
+  spf: true
+  dmarc: true
+  dmarc_policy: none
+- domain: createsend.com
+  dnssec: false
+  caa:
+  - 0 issue "sectigo.com"
+  - 0 issue "amazon.com"
+  - 0 issue "letsencrypt.org"
+  - 0 issue "digicert.com"
+  - 0 issuewild "amazon.com"
+  - 0 issue "godaddy.com"
+  spf: true
+  dmarc: true
+  dmarc_policy: none

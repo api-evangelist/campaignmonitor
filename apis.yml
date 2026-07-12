@@ -38,6 +38,12 @@ apis:
       - FN: Campaign Monitor Support
         url: https://help.campaignmonitor.com/
 common:
+  - type: TrustCenter
+    url: security/campaignmonitor-trust-center.yml
+  - type: VulnerabilityDisclosure
+    url: security/campaignmonitor-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/campaignmonitor-domain-security.yml
   - type: Website
     url: https://www.campaignmonitor.com/
   - type: Documentation
