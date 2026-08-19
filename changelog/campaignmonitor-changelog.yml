@@ -1,0 +1,80 @@
+generated: '2026-08-13'
+method: searched
+source: https://www.campaignmonitor.com/api/v3-3/whats-new/
+docs: https://www.campaignmonitor.com/api/v3-3/whats-new/
+description: >-
+  Campaign Monitor's API change record is a per-version "What's New" page, not a
+  dated changelog. That is the finding worth recording: the page enumerates
+  every new and modified endpoint for the 3.2 -> 3.3 move and flags the breaking
+  ones, but carries no release dates, so a consumer cannot tell when a change
+  landed or how much notice they had. The product-side
+  https://www.campaignmonitor.com/whats-new/ page is likewise undated and covers
+  the application, not the API.
+scheme: per-version release notes (undated)
+dated: false
+current_version: v3.3
+previous_version: v3.2
+archive: https://www.campaignmonitor.com/api/v3-2/
+entries:
+  - version: v3.3
+    date: null
+    latest: true
+    breaking: true
+    breaking_note: >-
+      Campaign Monitor states directly: "The following APIs have had breaking
+      changes implemented. Please note these changes when moving from 3.2 to 3.3."
+    highlights:
+      - Pagination and performance improvements when requesting campaigns
+      - New endpoint for campaign tags
+      - Track the date a subscriber joins a list (ListJoinedDate)
+      - Trigger Subscriber Activity Journeys
+      - Copy a journey
+      - Copy a template
+    new_endpoints:
+      - Get tags — GET /clients/{clientid}/tags
+      - Copy a journey — POST /journeys/{journeyid}/copy
+      - Subscriber Activity Journeys — POST /events/publish/{clientId}
+      - Copy a template — POST /templates/{templateid}/copy
+    modified_endpoints:
+      - endpoint: Campaign summary
+        change: '"Name" was added'
+      - endpoint: Get sent campaigns
+        change: >-
+          Results are now paginated (limited to 1000 entries per API call);
+          "Tags" was added; campaigns can be sorted and filtered by Sent Date and
+          filtered by tags
+        breaking: true
+      - endpoint: Get draft campaigns
+        change: '"Tags" was added'
+      - endpoint: Get scheduled campaigns
+        change: '"Tags" was added'
+      - endpoint: List active / unconfirmed / unsubscribed / bounced / deleted subscribers
+        change: >-
+          "ListJoinedDate" added; "MobileNumber" added and returned when
+          available; "ConsentToSendSms" returned when MobileNumber exists and
+          IncludeSmsPreference=true is passed in the query string
+      - endpoint: Segments — active subscribers
+        change: '"ListJoinedDate" was added'
+      - endpoint: Subscribers — details
+        change: '"ListJoinedDate" was added'
+      - endpoint: Subscriber — get
+        change: '"ListJoinedDate", "MobileNumber" and "ConsentToSendSms" added (the latter two when a mobile number exists)'
+      - endpoint: Subscriber — add
+        change: '"MobileNumber" and "ConsentToSendSms" can be optionally supplied'
+      - endpoint: Subscriber — update
+        change: '"MobileNumber" and "ConsentToSendSms" can be optionally supplied'
+      - endpoint: Subscribers — import many
+        change: '"MobileNumber" and "ConsentToSendSms" can be optionally supplied per subscriber element'
+  - version: v3.2
+    date: null
+    latest: false
+    note: >-
+      Documentation retained at https://www.campaignmonitor.com/api/v3-2/. The
+      archive page carries the v3.2 reference but publishes no dated release
+      notes of its own.
+gaps:
+  - No release dates on any API change entry.
+  - No RSS/Atom or JSON feed for API changes.
+  - No advance-notice window stated before a breaking version ships.
+related:
+  - lifecycle/campaignmonitor-lifecycle.yml

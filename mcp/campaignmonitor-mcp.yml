@@ -1,0 +1,148 @@
+generated: '2026-08-13'
+method: derived
+status: candidate
+source: >-
+  Candidate tool surface derived from the operations Campaign Monitor documents
+  at https://www.campaignmonitor.com/api/v3-3/. Every tool below names the real
+  method and path it would wrap; nothing was invented.
+notes: >-
+  Campaign Monitor publishes NO MCP server — hosted or local. Searched the
+  developer documentation, the github.com/campaignmonitor organization (23 public
+  repos, all API wrappers and legacy plugins), npm, and the public MCP registries.
+  Two subdomains were probed and are NOT MCP endpoints:
+  https://mcp.campaignmonitor.com/ returns 301 to the marketing homepage and
+  https://mcp.createsend.com/ returns 302 to the app login — both are wildcard
+  DNS catch-alls. This artifact is a design sketch only; no endpoint is implied
+  to exist.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: unknown
+  verified: probed
+server:
+  name: campaignmonitor
+  transport: null
+  url: null
+  base_url: https://api.createsend.com/api/v3.3
+  auth:
+    type: oauth2-or-basic
+    note: >-
+      A future server would carry the account's OAuth 2.0 bearer token or an API
+      key over HTTP Basic. Scope selection matters — Campaign Monitor's
+      permissions are coarse (ManageLists implies write), so a read-only agent
+      tool cannot be granted read-only rights.
+    artifact: authentication/campaignmonitor-authentication.yml
+tool_count: 24
+tools:
+  - name: campaignmonitor_list_clients
+    description: List the clients in the account.
+    method: GET
+    path: /clients.json
+  - name: campaignmonitor_get_client
+    description: Get a client's details, including billing and access settings.
+    method: GET
+    path: /clients/{clientid}.json
+  - name: campaignmonitor_list_lists
+    description: List a client's subscriber lists.
+    method: GET
+    path: /clients/{clientid}/lists.json
+  - name: campaignmonitor_get_list
+    description: Get a subscriber list's details.
+    method: GET
+    path: /lists/{listid}.json
+  - name: campaignmonitor_get_list_stats
+    description: Get subscriber counts and engagement stats for a list.
+    method: GET
+    path: /lists/{listid}/stats.json
+  - name: campaignmonitor_create_list
+    description: Create a new subscriber list for a client.
+    method: POST
+    path: /lists/{clientid}.json
+  - name: campaignmonitor_list_custom_fields
+    description: List the custom fields defined on a subscriber list.
+    method: GET
+    path: /lists/{listid}/customfields.json
+  - name: campaignmonitor_add_subscriber
+    description: Add a subscriber to a list, with optional custom fields and consent flags.
+    method: POST
+    path: /subscribers/{listid}.json
+  - name: campaignmonitor_update_subscriber
+    description: Update an existing subscriber, addressed by their current email address.
+    method: PUT
+    path: /subscribers/{listid}.json?email={email}
+  - name: campaignmonitor_import_subscribers
+    description: Import up to 1000 subscribers into a list in one call.
+    method: POST
+    path: /subscribers/{listid}/import.json
+  - name: campaignmonitor_get_subscriber
+    description: Get a subscriber's details and state within a list.
+    method: GET
+    path: /subscribers/{listid}.json?email={email}
+  - name: campaignmonitor_get_subscriber_history
+    description: Get a subscriber's engagement history.
+    method: GET
+    path: /subscribers/{listid}/history.json?email={email}
+  - name: campaignmonitor_unsubscribe_subscriber
+    description: Unsubscribe a subscriber from a list.
+    method: POST
+    path: /subscribers/{listid}/unsubscribe.json
+  - name: campaignmonitor_list_active_subscribers
+    description: Page through the active subscribers on a list, optionally since a date.
+    method: GET
+    path: /lists/{listid}/active.json
+  - name: campaignmonitor_list_segments
+    description: List the segments defined on a list.
+    method: GET
+    path: /lists/{listid}/segments.json
+  - name: campaignmonitor_get_segment
+    description: Get a segment's rules and details.
+    method: GET
+    path: /segments/{segmentid}.json
+  - name: campaignmonitor_list_sent_campaigns
+    description: Page through a client's sent campaigns, filterable by date and tags.
+    method: GET
+    path: /clients/{clientid}/campaigns.json
+  - name: campaignmonitor_get_campaign_summary
+    description: Get the headline performance summary for a sent campaign.
+    method: GET
+    path: /campaigns/{campaignid}/summary.json
+  - name: campaignmonitor_get_campaign_opens
+    description: Page through the open events for a campaign.
+    method: GET
+    path: /campaigns/{campaignid}/opens.json
+  - name: campaignmonitor_get_campaign_clicks
+    description: Page through the click events for a campaign.
+    method: GET
+    path: /campaigns/{campaignid}/clicks.json
+  - name: campaignmonitor_create_campaign_from_template
+    description: Create a draft campaign from an existing template.
+    method: POST
+    path: /campaigns/{clientid}/fromtemplate.json
+  - name: campaignmonitor_send_campaign
+    description: Send or schedule a draft campaign. Consequential and NOT idempotent.
+    method: POST
+    path: /campaigns/{campaignid}/send.json
+  - name: campaignmonitor_send_smart_email
+    description: Send a transactional smart email to up to 25 recipients. Consequential and NOT idempotent.
+    method: POST
+    path: /transactional/smartEmail/{smartEmailID}/send
+  - name: campaignmonitor_get_transactional_statistics
+    description: Get transactional delivery statistics for a group or smart email over a date range.
+    method: GET
+    path: /transactional/statistics
+agent_safety:
+  idempotency: >-
+    NONE. Campaign Monitor documents no idempotency key. Any tool wrapping
+    campaignmonitor_send_campaign or campaignmonitor_send_smart_email must treat
+    a timeout as an indeterminate outcome and reconcile by reading state back
+    (campaign summary, transactional message listing) rather than retrying.
+  destructive_operations:
+    - POST /campaigns/{campaignid}/send — irreversible mail send to a full list
+    - POST /transactional/smartEmail/{smartEmailID}/send — irreversible mail send
+    - DELETE /lists/{listid} — deletes a list
+    - DELETE /clients/{clientid} — deletes a client and everything under it
+    - POST /subscribers/{listid}/import — bulk mutation of up to 1000 subscribers
+  rate_limits: rate-limits/campaignmonitor-rate-limits.yml
+  errors: errors/campaignmonitor-error-codes.yml

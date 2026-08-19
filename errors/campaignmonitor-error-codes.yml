@@ -1,0 +1,1568 @@
+generated: '2026-08-13'
+method: searched
+source: https://www.campaignmonitor.com/api/v3-3/getting-started/ plus the per-area error reference blocks
+  published on https://www.campaignmonitor.com/api/v3-3/{account,campaigns,clients,journeys,lists,segments,subscribers,templates,transactional}/
+  — every code below was transcribed from Campaign Monitor's own documentation pages on 2026-08-13. Nothing
+  was inferred.
+description: Campaign Monitor's error registry. The API does NOT use RFC 9457 problem+json — it returns
+  a flat envelope with a numeric application Code and a Message, in JSON or XML depending on the requested
+  representation. The numeric code is the stable identifier; the HTTP status is coarse (almost every application
+  error is a 400, and an unauthorised or unowned resource is a 401 rather than a 403/404).
+format: proprietary
+envelope:
+  json: '{"Code": <int>, "Message": "<string>"}'
+  xml: <Result><Code>…</Code><Message>…</Message></Result>
+  content_types:
+  - application/json; charset=utf-8
+  - application/xml; charset=utf-8
+  note: Some validation responses add a ResultData object carrying per-item detail (for example subscriber
+    import failures, code 210, and segment rule parsing, codes 277/2703).
+http_status_semantics:
+- status: 200
+  meaning: GET succeeded; PUT updated; DELETE deleted; POST performed a non-creating action (for example
+    sending a campaign).
+- status: 201
+  meaning: POST created a resource.
+- status: 202
+  meaning: Transactional send accepted; response is an array with a MessageID per recipient.
+- status: 400
+  meaning: Input error. Body carries the numeric Code and Message.
+- status: 401
+  meaning: Authentication failure OR a resource ID that does not belong to the caller OR missing OAuth
+    permission (code 60).
+- status: 403
+  meaning: Agency-only resource requested by a non-agency customer.
+- status: 404
+  meaning: Resource does not exist.
+- status: 410
+  meaning: Transactional message can no longer be resent (attachments or expired content).
+- status: 429
+  meaning: Transactional rate limit exceeded.
+- status: 500
+  meaning: Unhandled server error.
+error_count: 240
+errors:
+- code: 1
+  title: Invalid Email Address
+  http_status: 400
+  areas:
+  - account
+  - clients
+  - subscribers
+  - transactional
+  detail: Email address is missing or incorrectly formatted.
+- code: 5
+  title: Invalid Date
+  http_status: 400
+  areas:
+  - campaigns
+  - journeys
+  - lists
+  - segments
+  detail: The Send Date provided was invalid.
+- code: 60
+  title: You do not have the required permission to access this resource
+  http_status: 401
+  areas:
+  - journeys
+  - templates
+  detail: When using
+- code: 100
+  title: Invalid API Key
+  http_status: 401
+  areas:
+  - getting-started
+  detail: The supplied API key was not recognised.
+- code: 102
+  title: Invalid ClientID
+  http_status: 401
+  areas:
+  - getting-started
+  detail: A client ID was supplied that does not belong to the authenticated account. Campaign Monitor
+    returns 401 (not 403/404) for a resource ID you do not own.
+- code: 110
+  title: Deprecated Method
+  http_status: 400
+  areas:
+  - clients
+  detail: Client details can be updated in this way if there is only one Person in this Client. If there
+    are multiple Persons, or no Persons at all, you cannot set their details this way. Instead,
+- code: 120
+  title: Invalid OAuth Token
+  http_status: 401
+  areas:
+  - getting-started
+  detail: The OAuth access token was not recognised. Request a new token.
+- code: 121
+  title: Expired OAuth Token
+  http_status: 401
+  areas:
+  - getting-started
+  detail: The OAuth access token has expired. Use the refresh token to obtain a new one.
+- code: 122
+  title: Revoked OAuth Token
+  http_status: 401
+  areas:
+  - getting-started
+  detail: The OAuth access token was revoked by the account holder.
+- code: 125
+  title: Invalid DestinationClientID
+  http_status: 400
+  areas:
+  - journeys
+  - templates
+  detail: A valid Destination Client ID is required.
+- code: 126
+  title: Invalid DestinationListID
+  http_status: 400
+  areas:
+  - journeys
+  detail: A valid Destination List ID is required.
+- code: 150
+  title: Email Taken
+  http_status: 400
+  areas:
+  - account
+  - clients
+  detail: A person with that email address is already associated with this client.
+- code: 152
+  title: Invalid Timezone
+  http_status: 400
+  areas:
+  - clients
+  detail: Timezone string is not in the correct format.
+- code: 153
+  title: Invalid Access Level
+  http_status: 400
+  areas:
+  - clients
+  detail: Specified access level does not exist. Please check the documentation for valid access level
+    settings.
+- code: 154
+  title: Empty Company Name
+  http_status: 400
+  areas:
+  - clients
+  detail: Company name cannot be empty
+- code: 157
+  title: Invalid Country
+  http_status: 400
+  areas:
+  - clients
+  detail: Country string is either empty or invalid
+- code: 167
+  title: Invalid Currency Code
+  http_status: 400
+  areas:
+  - clients
+  detail: The currency selected is invalid. Please ensure you use a valid currency.
+- code: 170
+  title: Markup Rate Too Low
+  http_status: 400
+  areas:
+  - clients
+  detail: The Markup Percentage must be greater than or equal to zero
+- code: 172
+  title: Client Creation Limit
+  http_status: 400
+  areas:
+  - clients
+  detail: You can create a maximum of five (5) clients per thirty (30) minutes
+- code: 173
+  title: Cannot set billing without access
+  http_status: 400
+  areas:
+  - clients
+  detail: You cannot set client billing options for clients without Create Send access
+- code: 174
+  title: Unsafe Password
+  http_status: 400
+  areas:
+  - clients
+  detail: Supplied password is considered unsafe and easily hackable. Please choose another.
+- code: 175
+  title: Invalid Password
+  http_status: 400
+  areas:
+  - clients
+  detail: If password is supplied, it must be at least 6 characters.
+- code: 176
+  title: Email address not in suppression list
+  http_status: 400
+  areas:
+  - clients
+  detail: The email address provided is not in the client's suppression list.
+- code: 177
+  title: Attempted to transfer greater than total client credits
+  http_status: 400
+  areas:
+  - clients
+  detail: You attempted to transfer more than the total number of credits belonging to the client.
+- code: 178
+  title: Attempted to transfer greater than total account credits
+  http_status: 400
+  areas:
+  - clients
+  detail: You attempted to transfer more than the total number of credits in your account.
+- code: 201
+  title: Already subscribed
+  http_status: 400
+  areas:
+  - subscribers
+  detail: New Email Address is already subscribed to the list. Subscriber not updated.
+- code: 203
+  title: Subscriber Not In List
+  http_status: 400
+  areas:
+  - subscribers
+  detail: Email Address does not belong to the list. Subscriber not updated.
+- code: 204
+  title: In Suppression List
+  http_status: 400
+  areas:
+  - subscribers
+  detail: Email Address has existed in the selected list before, and currently exists in suppression list.
+    Subscriber is not added.
+- code: 205
+  title: Is Deleted
+  http_status: 400
+  areas:
+  - subscribers
+  detail: Email Address exists in deleted list. Subscriber is not added.
+- code: 206
+  title: Is Unsubscribed
+  http_status: 400
+  areas:
+  - subscribers
+  detail: Email Address exists in unsubscribed list. Subscriber is not added.
+- code: 207
+  title: Is Bounced
+  http_status: 400
+  areas:
+  - subscribers
+  detail: Email Address exists in bounced list. Subscriber is not added.
+- code: 208
+  title: Is Unconfirmed
+  http_status: 400
+  areas:
+  - subscribers
+  detail: Email Address exists in unconfirmed list. Subscriber is not added.
+- code: 209
+  title: Too many subscribers in this batch. You can only add 1000 subscribers in one call
+  http_status: 400
+  areas:
+  - subscribers
+  detail: When importing many subscribers at once, you may only import up to 1000 subscribers at once.
+    If you need to import more than this number of subscribers, you will need to make additional requests.
+- code: 210
+  title: Subscriber Import had some failures
+  http_status: 400
+  areas:
+  - subscribers
+  detail: There were some failures when attempting to import some subscribers. You will need to inspect
+    the ResultData property of the result for the full details of these failures.
+- code: 211
+  title: Invalid New Email Address
+  http_status: 400
+  areas:
+  - subscribers
+  detail: New Email Address was invalid. Subscriber not updated.
+- code: 212
+  title: No subscribers were provided in this batch
+  http_status: 400
+  areas:
+  - subscribers
+  detail: No subscribers were provided in this batch.
+- code: 214
+  title: Please provide a consent to track value
+  http_status: 400
+  areas:
+  - subscribers
+- code: 215
+  title: Please provide a valid consent to track value
+  http_status: 400
+  areas:
+  - subscribers
+- code: 220
+  title: Invalid mobile number
+  http_status: 400
+  areas:
+  - subscribers
+  detail: The MobileNumber provided is not a valid E.164 phone number.
+- code: 221
+  title: Invalid email address and mobile number
+  http_status: 400
+  areas:
+  - subscribers
+  detail: Email address is missing or incorrectly formatted and the mobile number is not a valid E.164
+    phone number.
+- code: 250
+  title: Duplicate list title
+  http_status: 400
+  areas:
+  - lists
+  detail: Cannot create a list with the same title as another.
+- code: 251
+  title: List Title Empty
+  http_status: 400
+  areas:
+  - lists
+  detail: The list title cannot be empty.
+- code: 252
+  title: Cannot delete a list attached to at least one campaign draft
+  http_status: 400
+  areas:
+  - lists
+  detail: The specified list is being used by a draft campaign.
+- code: 253
+  title: Invalid Key. Keys must be surrounded with [ ]
+  http_status: 400
+  areas:
+  - lists
+  detail: The provided field key was either not valid or a field with that key does not exist.
+- code: 254
+  title: Invalid Field Name
+  http_status: 400
+  areas:
+  - lists
+  detail: The FieldName provided was not valid.
+- code: 255
+  title: The Field Name already exists in this list
+  http_status: 400
+  areas:
+  - lists
+  detail: A Custom Field with the same Field Name already exists.
+- code: 256
+  title: Options defined for Text or Number Field
+  http_status: 400
+  areas:
+  - lists
+  detail: The Options property was neither null or empty for a Text, Number, Date, Country or USState
+    based field
+- code: 257
+  title: No options defined for Multi-Valued field
+  http_status: 400
+  areas:
+  - lists
+  detail: There were no options defined for a Multi-Valued Custom Field (i.e MultiSelectOne or MultiSelectMany)
+- code: 259
+  title: Data type is incorrect
+  http_status: 400
+  areas:
+  - lists
+  detail: 'The provided Data Type was not one of the following valid options:'
+- code: 261
+  title: Invalid List Unsubscribe Setting
+  http_status: 400
+  areas:
+  - lists
+  detail: Invalid unsubscribe setting. Unsubscribe setting must be either AllClientLists or OnlyThisList.
+- code: 271
+  title: Invalid SegmentID
+  http_status: 400
+  areas:
+  - segments
+  detail: Invalid SegmentID or the Segment doesn't exist
+- code: 272
+  title: Segment Has Campaigns
+  http_status: 400
+  areas:
+  - segments
+  detail: A segment attached to unsent campaign drafts cannot be deleted
+- code: 273
+  title: Segment Title Empty
+  http_status: 400
+  areas:
+  - segments
+  detail: The segment title cannot be empty.
+- code: 275
+  title: Duplicate Segment Title
+  http_status: 400
+  areas:
+  - segments
+  detail: The segment title must be unique in a list.
+- code: 277
+  title: Invalid Segment Rules
+  http_status: 400
+  areas:
+  - segments
+  detail: One or more of the supplied Rules could not be parsed. Check the ResultData object for more
+    detail.
+- code: 278
+  title: Segment calculation is in progress
+  http_status: 400
+  areas:
+  - segments
+  detail: Segment calculation is in progress. Please try again later.
+- code: 283
+  title: Segment Limits Reached
+  http_status: 400
+  areas:
+  - segments
+  detail: You’ve reached your API segment limit. To create additional segments or segment rules, please
+    contact
+- code: 284
+  title: This is a system segment and it cannot be modified
+  http_status: 400
+  areas:
+  - segments
+  detail: You've tried to modify or delete an engagement segment. These are provided by default and can't
+    be changed.
+- code: 285
+  title: Engagement Segment RuleGroup Has Other RuleTypes
+  http_status: 400
+  areas:
+  - segments
+  detail: Rule groups with EngagementSegment rules may only contain EngagementSegment rules.
+- code: 286
+  title: Engagement Segment Rules Not Available
+  http_status: 400
+  areas:
+  - segments
+  detail: Engagement Segment rules are not available on your plan. Upgrade to the Premier plan to unlock
+    access.
+- code: 287
+  title: Segment Temporarily Unavailable
+  http_status: 400
+  areas:
+  - segments
+  detail: Segment temporarily unavailable, another request for this segment is currently in progress.
+- code: 302
+  title: Invalid Message ID
+  http_status: 400
+  areas:
+  - transactional
+  detail: Message ID not found
+- code: 303
+  title: Duplicate Campaign Name
+  http_status: 400
+  areas:
+  - campaigns
+  detail: The campaign name passed in already exists for this client.
+- code: 304
+  title: Campaign Subject Required
+  http_status: 400
+  areas:
+  - campaigns
+  detail: A campaign subject must be provided.
+- code: 305
+  title: From Name Required
+  http_status: 400
+  areas:
+  - campaigns
+  detail: The From name field is required and must be provided.
+- code: 307
+  title: Invalid From Email Address
+  http_status: 400
+  areas:
+  - campaigns
+  detail: The From Email Address must be a valid email address.
+- code: 308
+  title: Reply to Address Required
+  http_status: 400
+  areas:
+  - campaigns
+  detail: The Reply-To Address is a required field and must be provided.
+- code: 309
+  title: Invalid Reply-To Address
+  http_status: 400
+  areas:
+  - campaigns
+  detail: The Reply-To Address must be a valid email address.
+- code: 310
+  title: HTML Content URL Required
+  http_status: 400
+  areas:
+  - campaigns
+  detail: You must provide a URL of the HTML content for your campaign.
+- code: 311
+  title: Invalid HTML Content
+  http_status: 400
+  areas:
+  - campaigns
+  detail: Your content contains JavaScript or Flash which cannot be sent to email clients.
+- code: 312
+  title: Invalid Text Content URL
+  http_status: 400
+  areas:
+  - campaigns
+  detail: Text Content URL is optional, but must be valid if provided.
+- code: 313
+  title: Invalid ListID’s
+  http_status: 400
+  areas:
+  - campaigns
+  detail: The List ID’s you supplied are invalid.
+- code: 314
+  title: Invalid Segments
+  http_status: 400
+  areas:
+  - campaigns
+  detail: The Segments you supplied are invalid.
+- code: 315
+  title: Lists or Segments Required
+  http_status: 400
+  areas:
+  - campaigns
+  detail: You must provide either List ID’s or Segments to send to.
+- code: 316
+  title: Problems Importing Links
+  http_status: 400
+  areas:
+  - campaigns
+  detail: There was a problem parsing and importing your links.
+- code: 317
+  title: Link Too Long
+  http_status: 400
+  areas:
+  - campaigns
+  detail: At least one of your links was too long to import.
+- code: 318
+  title: Text Unsubscribe Tag In HTML Email
+  http_status: 400
+  areas:
+  - campaigns
+  detail: You currently only have a text unsubscribe link of the format {[unsubscribe]} in your HTML content.
+    We require a single-click unsubscribe link in every campaign you send. You can do this by adding the
+    tags and around the words you want to become an unsubscribe link, and then re-import your content.
+- code: 319
+  title: Campaign Name Required
+  http_status: 400
+  areas:
+  - campaigns
+  detail: A campaign name was not provided, and is required.
+- code: 320
+  title: Template Content Required
+  http_status: 400
+  areas:
+  - campaigns
+  detail: Template content must be provided.
+- code: 321
+  title: Template Content Includes Invalid Image
+  http_status: 400
+  areas:
+  - campaigns
+  detail: Template content includes an image with an invalid URL, which we couldn't download.
+- code: 322
+  title: From Name Contains Reserved Personalization Tag
+  http_status: 400
+  areas:
+  - campaigns
+  detail: From name can not include personalization tags other than custom fields
+- code: 323
+  title: From Email Address Requires a Fallback
+  http_status: 400
+  areas:
+  - campaigns
+  detail: 'From email address requires a fallback: [customfield,'
+- code: 324
+  title: From Address Contains Reserved Personalization Tag
+  http_status: 400
+  areas:
+  - campaigns
+  detail: From email address can not include personalization tags other than custom fields
+- code: 325
+  title: Reply-To Address Requires a Fallback
+  http_status: 400
+  areas:
+  - campaigns
+  detail: 'Reply-to address requires a fallback: [customfield,'
+- code: 326
+  title: Reply-To Address Uses Reserved Personalization Tag
+  http_status: 400
+  areas:
+  - campaigns
+  detail: Reply-to address can not include personalization tags other than custom fields
+- code: 331
+  title: Campaign has already been sent
+  http_status: 400
+  areas:
+  - campaigns
+  detail: The campaign has already been sent.
+- code: 332
+  title: No Recipients Added
+  http_status: 400
+  areas:
+  - campaigns
+  detail: There are no recipient lists or segments added to this campaign.
+- code: 333
+  title: No Test Campaigns Available
+  http_status: 400
+  areas:
+  - campaigns
+  detail: Each customer can send a limited number of test campaigns (of less than 6 recipients) and campaign
+    previews. Contact support if you have any queries.
+- code: 334
+  title: Campaign Pending Approval
+  http_status: 400
+  areas:
+  - campaigns
+  detail: This client doesn't have approval to send to a list of recipients of this size.
+- code: 335
+  title: Payment Details Required
+  http_status: 400
+  areas:
+  - campaigns
+  detail: The payment details for this client are required.
+- code: 336
+  title: Campaign Payment Failed
+  http_status: 400
+  areas:
+  - campaigns
+  detail: Payment for this campaign failed. Either there weren’t sufficient credits or the payment details
+    were rejected.
+- code: 337
+  title: Delivery Date Cannot be in the Past
+  http_status: 400
+  areas:
+  - campaigns
+  detail: The delivery date was set to a date in the past.
+- code: 338
+  title: Confirm Email Required
+  http_status: 400
+  areas:
+  - campaigns
+  detail: The email address for campaign sent confirmation cannot be empty.
+- code: 339
+  title: Confirm Email Invalid
+  http_status: 400
+  areas:
+  - campaigns
+  detail: The email address for campaign sent confirmation is invalid.
+- code: 340
+  title: Recipient Lists Empty
+  http_status: 400
+  areas:
+  - campaigns
+  detail: The selected subscriber lists and/or segments contain no subscribers
+- code: 341
+  title: Campaign is not scheduled
+  http_status: 400
+  areas:
+  - campaigns
+  detail: The campaign is not currently scheduled. Either a schedule has not been specified or the campaign
+    has already been sent (or is in the process of sending).
+- code: 355
+  title: Monthly Payment Failed
+  http_status: 400
+  areas:
+  - campaigns
+  detail: Your monthly account has not been paid for, and the attempt to bring it up to date failed.
+- code: 370
+  title: No Preview Recipients Supplied
+  http_status: 400
+  areas:
+  - campaigns
+  detail: Preview Recipients must have at least one email address.
+- code: 371
+  title: Invalid Preview Recipient Emails
+  http_status: 400
+  areas:
+  - campaigns
+  detail: Preview Recipients must all be valid email addresses. A collection of Recipients to indicate
+    which intended recipients were invalid email addresses is also returned.
+- code: 373
+  title: Recipient Not In Campaign Lists
+  http_status: 400
+  areas:
+  - campaigns
+  detail: Personalisation email address must be a recipient of the campaign.
+- code: 374
+  title: Too Many Preview Recipients
+  http_status: 400
+  areas:
+  - campaigns
+  detail: You can only send to fifteen (15) addresses at once.
+- code: 375
+  title: Client Test Campaign Rate Violation
+  http_status: 400
+  areas:
+  - campaigns
+  detail: You can only send to 240 addresses every 1440 minutes (24 hours).
+- code: 376
+  title: Campaign Must Have Content And Recipients
+  http_status: 400
+  areas:
+  - campaigns
+  detail: Campaign must have content and recipient lists assigned.
+- code: 403
+  title: Not allowed for a Non-agency Customer
+  http_status: 403
+  areas:
+  - getting-started
+  detail: An agency-only resource (such as creating or deleting a client) was requested by a non-agency
+    account.
+- code: 404
+  title: Not Found
+  http_status: 404
+  areas:
+  - getting-started
+  - transactional
+  detail: Send ID not found
+- code: 410
+  title: Gone
+  http_status: 410
+  areas:
+  - transactional
+  detail: Original message can not be resent because it contained attachments or the content is no longer
+    available.
+- code: 429
+  title: Rate limit exceeded
+  http_status: 429
+  areas:
+  - getting-started
+  - transactional
+  detail: The /transactional rate limit was exceeded. Back off using X-RateLimit-Reset.
+- code: 500
+  title: Sorry, we've run into a problem
+  http_status: 500
+  areas:
+  - getting-started
+  detail: Unhandled server error. Retry or contact support.
+- code: 601
+  title: Invalid Webhook URL
+  http_status: 400
+  areas:
+  - lists
+  detail: The URL provided for the webhook is invalid
+- code: 602
+  title: Invalid Webhook Format
+  http_status: 400
+  areas:
+  - lists
+  detail: The payload format provided for the webhook is invalid. Supported formats are json and xml.
+- code: 603
+  title: Invalid Webhook Event
+  http_status: 400
+  areas:
+  - lists
+  detail: At least one of the webhook events you have provided are invalid. Valid events are Subscribe,
+    Deactivate, and Update.
+- code: 610
+  title: The webhook request has failed
+  http_status: 400
+  areas:
+  - lists
+  detail: The attempt to post the webhook request to the provided URL has failed. Check the ResultData
+    object for more detail.
+- code: 701
+  title: Empty Person Name
+  http_status: 400
+  areas:
+  - clients
+  detail: Person name cannot be empty.
+- code: 702
+  title: Person not found
+  http_status: 400
+  areas:
+  - clients
+  detail: No person with that email address is associated with this client.
+- code: 703
+  title: Cannot delete last person
+  http_status: 400
+  areas:
+  - clients
+  detail: There must always be at least one person associated with the client.
+- code: 704
+  title: Person not active
+  http_status: 400
+  areas:
+  - clients
+  detail: The specified person has not accepted their invitation yet.
+- code: 751
+  title: Empty Administrator Name
+  http_status: 400
+  areas:
+  - account
+  detail: Administrator name cannot be empty.
+- code: 752
+  title: Administrator not found
+  http_status: 400
+  areas:
+  - account
+  detail: No administrator with that email address is associated with this account.
+- code: 753
+  title: Cannot delete last administrator
+  http_status: 400
+  areas:
+  - account
+  detail: There must always be at least one administrator associated with the account.
+- code: 754
+  title: Administrator not active
+  http_status: 400
+  areas:
+  - account
+  detail: The specified administrator has not accepted their invitation yet.
+- code: 800
+  title: Invalid page number
+  http_status: 400
+  areas:
+  - campaigns
+  - clients
+  - journeys
+  - lists
+  - segments
+  detail: The page number you have provided is invalid.
+- code: 801
+  title: Invalid page size
+  http_status: 400
+  areas:
+  - campaigns
+  - clients
+  - journeys
+  - lists
+  - segments
+  detail: The page size must be between 10 and 1000.
+- code: 802
+  title: Invalid order field
+  http_status: 400
+  areas:
+  - campaigns
+  - clients
+  - lists
+  - segments
+  detail: The order field must be either email, name or date
+- code: 803
+  title: Invalid order direction
+  http_status: 400
+  areas:
+  - campaigns
+  - clients
+  - journeys
+  - lists
+  - segments
+  detail: The order direction must be either
+- code: 850
+  title: Invalid count
+  http_status: 400
+  areas:
+  - transactional
+  detail: Must be a number between 1 and 200.
+- code: 904
+  title: Invalid sentbeforeid
+  http_status: 400
+  areas:
+  - transactional
+  detail: Value must be a valid GUID.
+- code: 905
+  title: Invalid sentafterid
+  http_status: 400
+  areas:
+  - transactional
+  detail: Value must be a valid GUID.
+- code: 920
+  title: Invalid from date
+  http_status: 400
+  areas:
+  - clients
+  - transactional
+  detail: The date must be provided in the format YYYY-MM-DD
+- code: 921
+  title: Invalid from date
+  http_status: 400
+  areas:
+  - transactional
+  detail: '"From Date" must be before or equal to "To Date"'
+- code: 922
+  title: Invalid to date
+  http_status: 400
+  areas:
+  - clients
+  - transactional
+  detail: The date must be provided in the format YYYY-MM-DD
+- code: 923
+  title: Invalid Timezone
+  http_status: 400
+  areas:
+  - transactional
+  detail: Timezone must be "utc" or "client"
+- code: 924
+  title: Conflict between Group and Smart Email ID
+  http_status: 400
+  areas:
+  - transactional
+  detail: You may only supply one of Group or Smart Email ID
+- code: 925
+  title: Invalid smartEmailID
+  http_status: 400
+  areas:
+  - transactional
+  detail: Value must be a valid GUID.
+- code: 926
+  title: Smart email not found
+  http_status: 400
+  areas:
+  - transactional
+  detail: No smart email with that ID could be found.
+- code: 927
+  title: Invalid date range
+  http_status: 400
+  areas:
+  - clients
+  detail: '"From Date" must be before "To Date"'
+- code: 932
+  title: Invalid status parameter
+  http_status: 400
+  areas:
+  - transactional
+  detail: Must be one of "all", "active", or "draft" for Smart Email Listing Endpoint
+- code: 935
+  title: Invalid statistics parameter
+  http_status: 400
+  areas:
+  - transactional
+  detail: Value must be 'true' or 'false'
+- code: 952
+  title: Recipient Required
+  http_status: 400
+  areas:
+  - transactional
+  detail: Recipient is required. At least one To, CC, or a BCC address is required
+- code: 953
+  title: Recipient too long
+  http_status: 400
+  areas:
+  - transactional
+  detail: Recipient name and email address have a maximum length of 250 characters
+- code: 954
+  title: Too many recipients
+  http_status: 400
+  areas:
+  - transactional
+  detail: '{number} email addresses specified across To, Cc and Bcc. The limit is 25'
+- code: 955
+  title: Invalid Reply-To address
+  http_status: 400
+  areas:
+  - transactional
+  detail: Must be a valid email address.
+- code: 957
+  title: From Required
+  http_status: 400
+  areas:
+  - transactional
+  detail: A valid email address is required.
+- code: 958
+  title: Long From details
+  http_status: 400
+  areas:
+  - transactional
+  detail: From name and email address have a maximum length of 250 characters
+- code: 960
+  title: Content is required
+  http_status: 400
+  areas:
+  - transactional
+  detail: Either "HTML" or "Text" content must be specified.
+- code: 970
+  title: TrackClicks parameter invalid
+  http_status: 400
+  areas:
+  - transactional
+  detail: Must be "true" or "false".
+- code: 971
+  title: TrackOpens parameter invalid
+  http_status: 400
+  areas:
+  - transactional
+  detail: Must be "true" or "false".
+- code: 972
+  title: InlineCSS parameter invalid
+  http_status: 400
+  areas:
+  - transactional
+  detail: Must be "true" or "false".
+- code: 974
+  title: Consent to track value is invalid or not provided
+  http_status: 400
+  areas:
+  - transactional
+- code: 980
+  title: Transactional email is not available in your account
+  http_status: 400
+  areas:
+  - transactional
+  detail: You need to be on an active monthly plan to send transactional email
+- code: 981
+  title: Attachment name is required
+  http_status: 400
+  areas:
+  - transactional
+  detail: Each attachment requires a name
+- code: 982
+  title: Attachment type is required
+  http_status: 400
+  areas:
+  - transactional
+  detail: Each attachment requires a mime type
+- code: 984
+  title: Invalid attachment content
+  http_status: 400
+  areas:
+  - transactional
+  detail: Attachment content is invalid, must be valid base64 encoded file.
+- code: 993
+  title: You need to set up custom authentication to send transactional emails. Update the settings in
+    your account to manage your own authentication.
+  http_status: 400
+  areas:
+  - transactional
+- code: 994
+  title: Your sending domain must match your authenticated domain to send transactional email.
+  http_status: 400
+  areas:
+  - transactional
+  detail: Stay ahead in email marketing
+- code: 996
+  title: Data field is too large. The maximum size is 100 KB.
+  http_status: 400
+  areas:
+  - transactional
+- code: 2703
+  title: Invalid Segment Clauses
+  http_status: 400
+  areas:
+  - segments
+  detail: At least one of the Clauses in this Rule could not be parsed. Check the ClauseResults for details.
+- code: 2704
+  title: Empty Segment RuleType
+  http_status: 400
+  areas:
+  - segments
+  detail: RuleType cannot be empty
+- code: 2705
+  title: Invalid Segment RuleType
+  http_status: 400
+  areas:
+  - segments
+  detail: RuleType must be one of "Name", "EmailAddress", "DateSubscribed", "CampaignOpened", "CampaignClickedAny",
+    "CampaignClickedSpecific", "CampaignNotClickedSpecific", "CampaignOpenedNoClick", "CampaignNotOpened",
+    or the personalisation tag of any custom field on the list.
+- code: 2706
+  title: Empty Segment Clauses
+  http_status: 400
+  areas:
+  - segments
+  detail: Any segment rule must have at least one clause
+- code: 2710
+  title: Empty Clause
+  http_status: 400
+  areas:
+  - segments
+  detail: A clause cannot be empty.
+- code: 2712
+  title: Invalid Verb For Name Rule
+  http_status: 400
+  areas:
+  - segments
+  detail: The verb supplied is illegal for a Name-based rule. Consult the documentation.
+- code: 2713
+  title: Invalid Verb For Email Rule
+  http_status: 400
+  areas:
+  - segments
+  detail: The verb supplied is illegal for a Email-based rule. Consult the documentation.
+- code: 2714
+  title: Invalid Verb For DateSubscribed Rule
+  http_status: 400
+  areas:
+  - segments
+  detail: The verb supplied is illegal for a DateSubscribed-based rule. Consult the documentation.
+- code: 2715
+  title: Invalid Verb For Text Field Rule
+  http_status: 400
+  areas:
+  - segments
+  detail: The verb supplied is illegal for a rule based on a Text custom field. Consult the documentation.
+- code: 2716
+  title: Invalid Verb For Number Field Rule
+  http_status: 400
+  areas:
+  - segments
+  detail: The verb supplied is illegal for a rule based on a Number custom field. Consult the documentation.
+- code: 2717
+  title: Invalid Verb For Multi-Option Field Rule
+  http_status: 400
+  areas:
+  - segments
+  detail: The verb supplied is illegal for a rule based on a Multi-Option custom field. Consult the documentation.
+- code: 2718
+  title: Invalid Verb For Date Field Rule
+  http_status: 400
+  areas:
+  - segments
+  detail: The verb supplied is illegal for a rule based on a Date custom field. Consult the documentation.
+- code: 2719
+  title: Required Clause Object Missing
+  http_status: 400
+  areas:
+  - segments
+  detail: The verb used requires a matching object to be part of the clause.
+- code: 2720
+  title: Invalid Date Format
+  http_status: 400
+  areas:
+  - segments
+  detail: All dates must be supplied in the format yyyy-mm-dd.
+- code: 2721
+  title: Invalid Number Format
+  http_status: 400
+  areas:
+  - segments
+  detail: Objects supplied in a number-based clause must be parsable as a number.
+- code: 2722
+  title: Option Doesnt Exist For Field
+  http_status: 400
+  areas:
+  - segments
+  detail: The object supplied is not a valid option on the custom field the rule is based upon.
+- code: 2723
+  title: Invalid year for Date Subscribed
+  http_status: 400
+  areas:
+  - segments
+  detail: An operand supplied as part of a DateSubscribed-based clause can only be from the last ten (10)
+    years, including the current year.
+- code: 2750
+  title: Valid CampaignID Required
+  http_status: 400
+  areas:
+  - segments
+  detail: The campaign ID supplied must be a fully-formed API CampaignID.
+- code: 2751
+  title: Campaign Not Sent To List
+  http_status: 400
+  areas:
+  - segments
+  detail: The CampaignID supplied has never been sent to this list or any segment of it.
+- code: 2753
+  title: Link Not In Campaign
+  http_status: 400
+  areas:
+  - segments
+  detail: The url given was not a clickable link in the campaign matching the CampaignID supplied.
+- code: 2754
+  title: Segment Rule Clause Not Parsed
+  http_status: 400
+  areas:
+  - segments
+  detail: Clause not parsed due to invalid RuleType.
+- code: 2755
+  title: Invalid Between Date Format
+  http_status: 400
+  areas:
+  - segments
+  detail: Between date range must be in the format 'YYYY-MM-DD AND YYYY-MM-DD'.
+- code: 2756
+  title: Invalid Between Number Format
+  http_status: 400
+  areas:
+  - segments
+  detail: Between number range must be in the format 'X AND Y'.
+- code: 2757
+  title: Invalid Verb For Location Rule
+  http_status: 400
+  areas:
+  - segments
+  detail: The verb supplied is illegal for a Location-based rule. Consult the documentation.
+- code: 2758
+  title: Invalid Operand For Location Rule
+  http_status: 400
+  areas:
+  - segments
+  detail: The operand supplied is illegal for a Location-based rule. Consult the documentation.
+- code: 2759
+  title: Valid Workflow Email Required
+  http_status: 400
+  areas:
+  - segments
+  detail: The workflow requires a valid email to be specified.
+- code: 2760
+  title: Link Not In Workflow Email
+  http_status: 400
+  areas:
+  - segments
+  detail: The url given was not a clickable link in the workflow matching the WorkflowID supplied.
+- code: 2761
+  title: Invalid Operand For Engagement Rule
+  http_status: 400
+  areas:
+  - segments
+  detail: The operand supplied is illegal for a Engagement-based rule. Consult the documentation.
+- code: 2762
+  title: Invalid Verb For MobileNumber Rule
+  http_status: 400
+  areas:
+  - segments
+  detail: The verb supplied is illegal for a MobileNumber-based rule. Consult the documentation.
+- code: 3000
+  title: Invalid Journey ID
+  http_status: 400
+  areas:
+  - journeys
+  detail: A valid Journey ID is required.
+- code: 3002
+  title: Invalid Journey Email ID
+  http_status: 400
+  areas:
+  - journeys
+  detail: The journey email ID is not valid.
+- code: 3003
+  title: Invalid journey name. Journey names cannot be empty and have a maximum length of 50 characters.
+  http_status: 400
+  areas:
+  - journeys
+  detail: Please reduce the journey name to 50 characters or less, or do not provide a name.
+- code: 4001
+  title: Invalid Template ID
+  http_status: 400
+  areas:
+  - campaigns
+  - templates
+  detail: Invalid Template ID, or the template doesn't exist or belong to the client.
+- code: 4002
+  title: Template Name Required
+  http_status: 400
+  areas:
+  - templates
+  detail: The template name passed cannot be empty.
+- code: 4003
+  title: Invalid Template Name
+  http_status: 400
+  areas:
+  - templates
+  detail: The template name entered is invalid.
+- code: 4004
+  title: HTML Page URL Required
+  http_status: 400
+  areas:
+  - templates
+  detail: The URL to your HTML page for the template cannot be empty.
+- code: 4005
+  title: Invalid HTML Page URL
+  http_status: 400
+  areas:
+  - templates
+  detail: You must provide a valid URL to your HTML page for the template.
+- code: 4006
+  title: Invalid ZIP File URL
+  http_status: 400
+  areas:
+  - templates
+  detail: The URL of the zip file you have passed is invalid.
+- code: 4101
+  title: No Editable Region in Template
+  http_status: 400
+  areas:
+  - templates
+  detail: You need have at least one
+- code: 4102
+  title: No Closing Repeater tag
+  http_status: 400
+  areas:
+  - templates
+  detail: We found your
+- code: 4103
+  title: No Width Specified in the Image Tag
+  http_status: 400
+  areas:
+  - templates
+  detail: The image you’ve added as
+- code: 4104
+  title: No Editable Regions in Repeater
+  http_status: 400
+  areas:
+  - templates
+  detail: We found your
+- code: 4105
+  title: No Opening Repeater tag
+  http_status: 400
+  areas:
+  - templates
+  detail: We found your
+- code: 4108
+  title: No Closing Table of Contents
+  http_status: 400
+  areas:
+  - templates
+  detail: We found the
+- code: 4109
+  title: No repeatertitle Tag
+  http_status: 400
+  areas:
+  - templates
+  detail: We found your
+- code: 4110
+  title: Mulitple repeatertitle tags
+  http_status: 400
+  areas:
+  - templates
+  detail: You have more than one repeatertitle tag within your tableofcontents tags. We can only reference
+    one of them, so please remove the extras.
+- code: 4111
+  title: No tableofcontents tags
+  http_status: 400
+  areas:
+  - templates
+  detail: You have provided a repeatertitle tag, but have not wrapped it in tableofcontents tags.
+- code: 4118
+  title: Table of Contents With No Repeater Tag
+  http_status: 400
+  areas:
+  - templates
+  detail: If you’re adding table of contents, you’ll also need a repeater in your template. The table
+    of contents is automatically created based on what your client adds for each repeater title. If you
+    have a table of contents, you’ll need to also add the
+- code: 4128
+  title: Nested Repeaters
+  http_status: 400
+  areas:
+  - templates
+  detail: Your template contains a repeater tag within an open repeater, or nested repeaters. Repeaters
+    cannot be nested and must be separate of other repeaters in your template.
+- code: 4129
+  title: Table Based Repeater Contains Multiple Trs
+  http_status: 400
+  areas:
+  - templates
+  detail: A repeater in your template contains multiple
+- code: 4130
+  title: No Closing Singleline tag
+  http_status: 400
+  areas:
+  - templates
+  detail: We found your
+- code: 4131
+  title: No Closing Multiline tag
+  http_status: 400
+  areas:
+  - templates
+  detail: We found your
+- code: 4132
+  title: No Repeater with Title
+  http_status: 400
+  areas:
+  - templates
+  detail: You have provided a tableofcontents, but haven't included a repeater with a
+- code: 4201
+  title: Contains Flash
+  http_status: 400
+  areas:
+  - campaigns
+  - templates
+  detail: Flash is not supported by almost every email client out there and should not be included in
+    your emails.
+- code: 4202
+  title: Contains Script
+  http_status: 400
+  areas:
+  - campaigns
+  - templates
+  detail: Almost every popular email client and spam filter does not support JavaScript. Your campaign
+    will either be filtered as spam, or will display a security warning to your recipients. We recommend
+    removing all JavaScript code from your campaign and then re-import it.
+- code: 4203
+  title: Contains Java
+  http_status: 400
+  areas:
+  - campaigns
+  - templates
+  detail: Java is not supported by almost every email client out there and should not be included in your
+    emails. Please remove it from your content.
+- code: 4300
+  title: No Unsubscribe Tag
+  http_status: 400
+  areas:
+  - templates
+  detail: We require a single-click unsubscribe link in every campaign you send. To add an unsubscribe
+    link, you can... Do it yourself - by adding the tags
+- code: 4301
+  title: Unsubscribe Tag Hidden In Comments
+  http_status: 400
+  areas:
+  - templates
+  detail: Your unsubscribe tag appears to be hidden inside HTML comment tags such as
+- code: 4302
+  title: Unsubscribe Tag Contains Less Than 3 Chars
+  http_status: 400
+  areas:
+  - campaigns
+  - templates
+  detail: You'll need to add some text, such as 'unsubscribe' in between your and tags. Those words will
+    then become an unsubscribe link for each recipient.
+- code: 4303
+  title: Unsubscribe Tag Contains A Link
+  http_status: 400
+  areas:
+  - campaigns
+  - templates
+  detail: It appears your <unsubscribe> tag contains a link. Please ensure you add the tags and around
+    only the words (and not links) you want to become an unsubscribe link. We'll automatically convert
+    that to a link for each recipient.
+- code: 4304
+  title: No Closing Unsubscribe Tag
+  http_status: 400
+  areas:
+  - campaigns
+  - templates
+  detail: We found the <unsubscribe> tag, but couldn't track down the </unsubscribe> tag. You'll need
+    to add this before the unsubscribe link will work.
+- code: 4305
+  title: Clickable unsubscribe link required
+  http_status: 400
+  areas:
+  - templates
+  detail: You're using a text email unsubscribe link - [unsubscribe]. Please change this to one suitable
+    for a HTML email by adding the tags
+- code: 4306
+  title: Nested Unsubscribe tag
+  http_status: 400
+  areas:
+  - campaigns
+  - templates
+  detail: We've detected an <unsubscribe> tag inside another
+- code: 4307
+  title: Nested Unsubscribe tag
+  http_status: 400
+  areas:
+  - campaigns
+  - templates
+  detail: We've detected an <unsubscribe> tag inside another link (ie. an
+- code: 4350
+  title: Files Missing from ZIP File
+  http_status: 400
+  areas:
+  - templates
+  detail: It appears that there are files missing from your zip file which are referenced by your HTML
+    file. Please ensure that all necessary files are included in the zip file and that the HTML file references
+    all other files correctly.
+- code: 4401
+  title: Layout not in a Repeater
+  http_status: 400
+  areas:
+  - templates
+  detail: We found a
+- code: 4402
+  title: No Closing Layout tag
+  http_status: 400
+  areas:
+  - templates
+  detail: We found your
+- code: 4403
+  title: No Opening Layout tag
+  http_status: 400
+  areas:
+  - templates
+  detail: We found your
+- code: 4404
+  title: No Editable Regions in Layout
+  http_status: 400
+  areas:
+  - templates
+  detail: We found your
+- code: 4405
+  title: Table Based Layout Contains Multiple Trs
+  http_status: 400
+  areas:
+  - templates
+  detail: A layout in your template contains multiple
+- code: 4406
+  title: Not all Layouts Have a Label
+  http_status: 400
+  areas:
+  - templates
+  detail: We found a
+- code: 4501
+  title: Nested datarepeater tags
+  http_status: 400
+  areas:
+  - templates
+  detail: Your template contains a datarepeater tag within an open repeater, or nested repeaters. Repeaters
+    cannot be nested and must be separate of other repeaters in your template.
+- code: 4502
+  title: Invalid datarepeater type
+  http_status: 400
+  areas:
+  - templates
+  detail: The type provided is invalid for a datarepeater. Please refer to the documentation to see what
+    types are acceptable.
+- code: 4503
+  title: Invalid datarepeater tag
+  http_status: 400
+  areas:
+  - templates
+  detail: The tag provided is invalid for this type of datarepeater. Please refer to the template documentation
+    to see which tags are accepted.
+- code: 4504
+  title: Invalid tag chosen for TOC
+  http_status: 400
+  areas:
+  - templates
+  detail: The tag provided is not a valid tag to be included in the table of contents for this type of
+    datarepeater. Please refer to the template documentation to see which tags are accepted.
+- code: 4505
+  title: Missing required attribute in tag
+  http_status: 400
+  areas:
+  - templates
+  detail: An attribute is required for a particular tag in this type of datarepeater. Please refer to
+    the template documentation to see which attributes are required.
+- code: 4506
+  title: Invalid attribute value in tag
+  http_status: 400
+  areas:
+  - templates
+  detail: The value you've supplied for an attribute is invalid for the given tag. Please refer to the
+    template documentation to see what values are accepted.
+- code: 4507
+  title: Missing required attribute in data tag
+  http_status: 400
+  areas:
+  - templates
+  detail: An attribute is required for the data tag when the given type is specified. Please refer to
+    the template documentation to see which attributes are required for what tags.
+- code: 4508
+  title: Missing datarepeater type
+  http_status: 400
+  areas:
+  - templates
+  detail: The type attribute is required for the datarepeater tag. Please refer to the template documentation
+    to see what values are accepted.
+- code: 4509
+  title: Invalid tag nesting
+  http_status: 400
+  areas:
+  - templates
+  detail: The tag is not able to have other data tags nested within it. Please refer to the template documentation
+    to see which tags are able to be nested.
+- code: 4510
+  title: Invalid tag nesting
+  http_status: 400
+  areas:
+  - templates
+  detail: The tag is not able to be nested within other data tags. Please refer to the template documentation
+    to see which tags are able to be nested.
+- code: 4511
+  title: Invalid site URL or no feeds
+  http_status: 400
+  areas:
+  - templates
+  detail: The url you have provided as the source for your
+- code: 5001
+  title: Unknown Member
+  http_status: 400
+  areas:
+  - account
+  detail: The email address provided was not recognised.
+- code: 5002
+  title: Invalid IntegratorID
+  http_status: 400
+  areas:
+  - account
+  detail: The IntegratorID provided was not recognised or invalid.
+- code: 5003
+  title: Invalid Chrome
+  http_status: 400
+  areas:
+  - account
+  detail: The Chrome options specified was invalid.

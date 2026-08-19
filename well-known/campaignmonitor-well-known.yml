@@ -1,0 +1,63 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  Live probes of the /.well-known/ discovery surface on every host named in
+  apis.yml — the API host (https://api.createsend.com, the baseURL) and the
+  marketing/docs host (https://www.campaignmonitor.com). Status is the HTTP code
+  observed at fetch time. www.campaignmonitor.com answers 404 with a full HTML
+  page body (the WordPress 404 template) for unknown /.well-known/ paths, so
+  those are recorded as misses; api.createsend.com answers a JSON 404 envelope.
+description: >-
+  One real document is served: RFC 9116 security.txt on the marketing host,
+  saved verbatim. Everything else 404s. Note the served security.txt carries an
+  Expires date of 2024-06-20, so by its own terms it is stale — recorded as
+  found-but-expired rather than silently treated as current.
+hosts:
+  - host: https://www.campaignmonitor.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        type: text/plain
+        file: campaignmonitor-security.txt
+        note: >-
+          RFC 9116. Contact = https://www.campaignmonitor.com/trust/report-a-vulnerability/
+          and mailto:campaignmonitor@submit.bugcrowd.com; Policy =
+          https://www.campaignmonitor.com/policies/. Expires field reads
+          2024-06-20T05:00:00.000Z — expired, not refreshed.
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: https://api.createsend.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+summary:
+  hosts_probed: 2
+  paths_probed: 14
+  documents_found: 1
+  security_txt: true
+  api_catalog: false
+  openid_configuration: false
+  oauth_authorization_server: false
+  agent_card: false

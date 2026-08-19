@@ -1,0 +1,132 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://www.campaignmonitor.com/api/v3-3/getting-started/,
+  https://www.campaignmonitor.com/api/v3-3/webhooks/,
+  https://trust.campaignmonitor.meetmarigold.com/,
+  https://www.campaignmonitor.com/.well-known/security.txt, and the live
+  /.well-known/ probe recorded in well-known/campaignmonitor-well-known.yml.
+description: >-
+  Which industry and cross-cutting standards the Campaign Monitor API actually
+  conforms to, each with the evidence it was judged on. Absence is recorded as
+  clearly as presence.
+standards:
+  - id: oauth2
+    conforms: true
+    evidence: >-
+      OAuth 2.0 with a documented authorization_code (web_server) flow and an
+      implicit (user_agent) flow, registered clients, refresh tokens, a
+      comma-separated scope parameter and the standard error codes
+      (invalid_request, unknown_client, access_denied).
+      https://www.campaignmonitor.com/api/v3-3/getting-started/
+  - id: oauth2-discovery
+    conforms: false
+    evidence: >-
+      No /.well-known/oauth-authorization-server on api.createsend.com or
+      www.campaignmonitor.com (both 404, probed 2026-08-13). Endpoints must be
+      hard-coded from the docs.
+  - id: oauth2-pkce
+    conforms: false
+    evidence: >-
+      RFC 7636 PKCE is not documented on either flow. The native/desktop path is
+      the legacy implicit flow, which OAuth 2.1 deprecates.
+  - id: oidc
+    conforms: false
+    evidence: No /.well-known/openid-configuration (404); no id_token, no userinfo endpoint.
+  - id: http-basic-auth
+    conforms: true
+    evidence: >-
+      API key supplied as the HTTP Basic username with an unused password
+      portion — RFC 7617 framing.
+  - id: rfc9457
+    conforms: false
+    evidence: >-
+      Errors use a proprietary {"Code": int, "Message": string} envelope (or the
+      XML <Result> equivalent), not application/problem+json.
+      errors/campaignmonitor-error-codes.yml
+  - id: rfc9116
+    conforms: true
+    partial: true
+    evidence: >-
+      A real security.txt is served at
+      https://www.campaignmonitor.com/.well-known/security.txt with Canonical,
+      Contact, Policy and Preferred-Languages fields. It is however EXPIRED — the
+      Expires field reads 2024-06-20T05:00:00.000Z, so by RFC 9116's own terms
+      the document should no longer be relied upon.
+  - id: rfc8594
+    conforms: false
+    evidence: No Sunset or Deprecation response headers; no deprecation policy document.
+  - id: idempotency
+    conforms: false
+    evidence: >-
+      No Idempotency-Key header or equivalent replay protection is documented on
+      any endpoint, including the money- and send-affecting POSTs.
+      conventions/campaignmonitor-conventions.yml
+  - id: pagination
+    conforms: true
+    evidence: >-
+      Consistent page-number pagination across collection endpoints
+      (page, pagesize 10-1000, orderfield, orderdirection) with a documented
+      response envelope carrying PageNumber, PageSize, RecordsOnThisPage,
+      TotalNumberOfRecords and NumberOfPages.
+  - id: rate-limit-headers
+    conforms: true
+    partial: true
+    evidence: >-
+      X-RateLimit-Limit / X-RateLimit-Remaining / X-RateLimit-Reset are returned
+      and 429 is the exhaustion status — but only on /transactional endpoints,
+      and these are the legacy X- headers, not the RFC 9331 RateLimit-* fields.
+  - id: webhook-signing
+    conforms: false
+    evidence: >-
+      Outbound webhook POSTs carry no signature header and no shared secret;
+      receivers cannot verify origin.
+      asyncapi/campaignmonitor-webhooks.yml
+  - id: openapi
+    conforms: false
+    evidence: >-
+      No OpenAPI or Swagger document is published. Probed /openapi.json,
+      /swagger.json, /api-docs and /docs on api.createsend.com (all 404 with the
+      API's own JSON 404 envelope) and on www.campaignmonitor.com (HTML 404
+      page), 2026-08-13.
+  - id: asyncapi
+    conforms: false
+    evidence: No AsyncAPI document; the event surface is a documented webhook catalog only.
+  - id: mcp
+    conforms: false
+    evidence: >-
+      No hosted MCP server. mcp.campaignmonitor.com 301-redirects to the
+      marketing site and mcp.createsend.com 302-redirects to the app login —
+      both are wildcard DNS catch-alls, not MCP endpoints.
+  - id: a2a
+    conforms: false
+    evidence: >-
+      No agent card at /.well-known/agent-card.json or /.well-known/agent.json on
+      either host (404, probed 2026-08-13).
+  - id: gdpr
+    conforms: true
+    evidence: >-
+      GDPR named on the Marigold-hosted trust center
+      (https://trust.campaignmonitor.meetmarigold.com/); the API also carries a
+      first-class consent primitive — ConsentToTrack on transactional sends and
+      ConsentToSendSms on subscribers.
+  - id: soc2
+    conforms: true
+    evidence: SOC 2 named on https://trust.campaignmonitor.meetmarigold.com/
+  - id: can-spam
+    conforms: true
+    evidence: >-
+      Single-click unsubscribe is enforced by the platform — campaigns and
+      templates are rejected without a valid <unsubscribe> tag (error codes
+      4300-4307), and list-level unsubscribe settings are API-managed.
+  - id: e164
+    conforms: true
+    evidence: >-
+      MobileNumber values must be valid E.164 phone numbers; error 220 is
+      returned otherwise.
+compliance:
+  certifications:
+    - SOC 2
+    - GDPR
+  trust_center: https://trust.campaignmonitor.meetmarigold.com/
+  detail: security/campaignmonitor-trust-center.yml

@@ -1,31 +1,104 @@
 name: Campaign Monitor API Rate Limits
-description: Rate limiting details for the Campaign Monitor API. Rate limits apply primarily to transactional endpoints. Standard REST endpoints do not publish explicit rate limits but headers are returned on all responses.
-version: '0.1'
+description: >-
+  Rate limiting for the Campaign Monitor API. Campaign Monitor limits only its
+  /transactional endpoints and does not publish the numeric ceiling — it
+  publishes the runtime signal instead (three X-RateLimit-* response headers and
+  a 429), which is what an agent actually needs. The rest of the REST surface
+  carries no published limit. Volume ceilings that DO bite in practice are
+  per-operation batch caps and plan-level send caps, recorded below.
+version: '0.2'
+generated: '2026-08-13'
+method: searched
+source: https://www.campaignmonitor.com/api/v3-3/getting-started/
 url: https://www.campaignmonitor.com/api/v3-3/getting-started/
 scope: transactional
+limit_count: 1
 limits:
-  - name: Transactional Endpoint Rate Limit
-    description: All /transactional endpoints are subject to rate limiting. Exceeding the rate limit returns HTTP 429 Too Many Requests.
+  - name: Transactional endpoint rate limit
+    description: >-
+      All /transactional endpoints are subject to API rate limiting. The ceiling
+      is not published as a number; it is returned per response in
+      X-RateLimit-Limit. Campaign Monitor's own documentation example shows a
+      window with X-RateLimit-Limit 60 and X-RateLimit-Reset 348, but the docs do
+      not state that 60 is the contractual value, so it is recorded as an
+      observed example rather than the limit.
     endpoint: /transactional/*
-    window: second
-    limit: 1
-    limitType: requests-per-second
-    notes: Bulk import endpoints may have separate limits. Contact Campaign Monitor support for exact burst allowances.
-  - name: Standard API Endpoints
-    description: Standard REST API endpoints (campaigns, subscribers, lists, segments, etc.) are not explicitly rate limited but subject to fair-use policies.
-    endpoint: /*
-    window: N/A
-    limit: N/A
-    limitType: fair-use
-    notes: No published hard limits for non-transactional endpoints.
+    scope: per API key / OAuth token
+    window: unpublished (communicated via X-RateLimit-Reset, in seconds)
+    limit: null
+    limit_documented: false
+    example_limit_in_docs: 60
+    burst: null
+    exhaustion_status: 429
+    notes: >-
+      Exceeding the limit returns HTTP 429 with the body
+      {"Code": 429, "Message": "Rate limit exceeded"}. Clients should back off
+      for X-RateLimit-Reset seconds.
+  - name: Standard REST endpoints
+    description: >-
+      Campaigns, clients, lists, subscribers, segments, templates, journeys and
+      account endpoints have no published rate limit.
+    endpoint: /api/v3.3/* (excluding /transactional)
+    window: null
+    limit: null
+    limit_documented: false
+    limitType: unpublished
+    notes: >-
+      No documented hard limit. The rate-limit headers are documented only in the
+      context of /transactional. Absence of a published limit is not a guarantee
+      of no limit.
 headers:
   - name: X-RateLimit-Limit
-    description: Maximum number of requests allowed before the rate limit window resets.
+    description: The maximum number of requests you can make before the rate limit is reset.
   - name: X-RateLimit-Remaining
-    description: Number of requests remaining in the current rate limit window.
+    description: The number of requests remaining in the current rate limit window.
   - name: X-RateLimit-Reset
-    description: Number of seconds until the rate limit window resets.
+    description: The number of seconds before the rate limit is reset.
+rfc9331_headers: false
+retry_after: false
 errors:
   - code: 429
-    message: Too Many Requests
-    description: Returned when the rate limit is exceeded. Clients should implement exponential backoff and retry after the X-RateLimit-Reset duration.
+    message: Rate limit exceeded
+    description: >-
+      Returned when the /transactional rate limit is exceeded. The response
+      includes X-RateLimit-Limit, X-RateLimit-Remaining (0) and
+      X-RateLimit-Reset. Back off for X-RateLimit-Reset seconds; no Retry-After
+      header is sent.
+volume_limits:
+  - name: Subscriber import batch
+    limit: 1000 subscribers per call
+    error_code: 209
+    endpoint: POST /subscribers/{listid}/import
+  - name: Transactional recipients per send
+    limit: 25 across To, CC and BCC
+    error_code: 954
+    endpoint: POST /transactional/smartEmail/{smartEmailID}/send
+  - name: Transactional Data field size
+    limit: 100 KB
+    error_code: 996
+  - name: Campaign preview recipients
+    limit: 15 addresses per call
+    error_code: 374
+    endpoint: POST /campaigns/{campaignid}/sendpreview
+  - name: Client test-campaign sending
+    limit: 240 addresses per 1440 minutes (24 hours)
+    error_code: 375
+  - name: Client creation
+    limit: 5 clients per 30 minutes
+    error_code: 172
+  - name: Pagination page size
+    limit: pagesize must be between 10 and 1000
+    error_code: 801
+  - name: Sent campaign listing
+    limit: 1000 entries per API call (new in v3.3)
+  - name: Webhook event batching
+    limit: 1000 events per outbound POST
+plan_limits:
+  note: >-
+    Monthly email send volume is capped by plan, not by the API. The Lite plan
+    caps sends at 5x the contact count; Essentials and above are unlimited. See
+    plans/campaignmonitor-plans-pricing.yml.
+related:
+  - conventions/campaignmonitor-conventions.yml
+  - errors/campaignmonitor-error-codes.yml
+  - plans/campaignmonitor-plans-pricing.yml

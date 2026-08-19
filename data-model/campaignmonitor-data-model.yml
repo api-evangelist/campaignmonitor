@@ -1,0 +1,331 @@
+generated: '2026-08-13'
+method: derived
+source: >-
+  Derived from the documented endpoint surface and identifier parameters on
+  https://www.campaignmonitor.com/api/v3-3/{account,clients,campaigns,journeys,lists,segments,subscribers,templates,transactional}/.
+  Campaign Monitor publishes no OpenAPI, so relationships were derived from the
+  path hierarchy (/clients/{clientid}/lists, /lists/{listid}/segments, ...) and
+  from the ID parameters each operation requires — not from $ref links.
+description: >-
+  The Campaign Monitor entity graph. The spine is Account -> Client -> List ->
+  Subscriber: nearly every resource is owned by a Client, and the Client is what
+  an agency-tier account multiplies. Subscribers are NOT global — a subscriber
+  exists inside a list and is addressed by email address within that list, which
+  is the single most important shape for an integrator to understand.
+entities:
+  - name: Account
+    description: The top-level Campaign Monitor account. Holds administrators, billing details and one or more clients.
+    id_field: null
+    id_note: The account is implied by the credential; there is no account ID parameter.
+    endpoints:
+      - GET /clients.{xml|json}
+      - GET /billingdetails.{xml|json}
+      - GET /admins.{xml|json}
+      - GET /primarycontact.{xml|json}
+      - GET /systemdate.{xml|json}
+    relationships:
+      - has_many: Client
+        via: GET /clients
+      - has_many: Administrator
+        via: GET /admins
+      - has_one: Administrator
+        as: primary contact
+        via: GET /primarycontact
+  - name: Administrator
+    description: A person with account-level access. Keyed by email address, not by an opaque ID.
+    id_field: EmailAddress
+    endpoints:
+      - POST /admins
+      - PUT /admins?email={email}
+      - GET /admins?email={email}
+      - DELETE /admins?email={email}
+    relationships:
+      - belongs_to: Account
+  - name: Client
+    description: >-
+      A tenant inside the account — for agencies, one per end customer. Owns
+      lists, segments, campaigns, templates, journeys, suppression list, sending
+      domains and people. Creating and deleting clients is agency-only (HTTP 403,
+      code 403, for non-agency accounts).
+    id_field: ClientID
+    id_format: 32-character lowercase hex string
+    endpoints:
+      - POST /clients
+      - GET /clients/{clientid}
+      - PUT /clients/{clientid}/setbasics
+      - PUT /clients/{clientid}/setpaygbilling
+      - PUT /clients/{clientid}/setmonthlybilling
+      - DELETE /clients/{clientid}
+    relationships:
+      - belongs_to: Account
+      - has_many: List
+        via: GET /clients/{clientid}/lists
+      - has_many: Segment
+        via: GET /clients/{clientid}/segments
+      - has_many: Campaign
+        via: GET /clients/{clientid}/campaigns, /scheduled, /drafts
+      - has_many: Template
+        via: GET /clients/{clientid}/templates
+      - has_many: Journey
+        via: GET /clients/{clientid}/journeys
+      - has_many: Person
+        via: GET /clients/{clientid}/people
+      - has_many: SendingDomain
+        via: GET /clients/{clientid}/sendingdomains
+      - has_many: Tag
+        via: GET /clients/{clientid}/tags
+      - has_one: SuppressionList
+        via: GET /clients/{clientid}/suppressionlist
+  - name: Person
+    description: A user with access to a specific client. Keyed by email address.
+    id_field: EmailAddress
+    endpoints:
+      - POST /clients/{clientid}/people
+      - PUT /clients/{clientid}/people?email={email}
+      - DELETE /clients/{clientid}/people?email={email}
+    relationships:
+      - belongs_to: Client
+  - name: List
+    description: A subscriber list owned by a client. The container for subscribers, custom fields, segments and webhooks.
+    id_field: ListID
+    id_format: 32-character lowercase hex string
+    endpoints:
+      - POST /lists/{clientid}
+      - GET /lists/{listid}
+      - GET /lists/{listid}/stats
+      - PUT /lists/{listid}
+      - DELETE /lists/{listid}
+    relationships:
+      - belongs_to: Client
+        via: created at POST /lists/{clientid}
+      - has_many: Subscriber
+        via: GET /lists/{listid}/{active|unconfirmed|unsubscribed|bounced|deleted}
+      - has_many: CustomField
+        via: GET /lists/{listid}/customfields
+      - has_many: Segment
+        via: GET /lists/{listid}/segments
+      - has_many: Webhook
+        via: GET /lists/{listid}/webhooks
+  - name: Subscriber
+    description: >-
+      A contact inside one list. Addressed by email address scoped to a ListID —
+      there is no global subscriber ID and no cross-list subscriber object.
+      Carries a state (Active, Unconfirmed, Unsubscribed, Bounced, Deleted),
+      custom field values, ListJoinedDate, and optionally MobileNumber /
+      ConsentToSendSms.
+    id_field: EmailAddress (scoped to ListID)
+    endpoints:
+      - POST /subscribers/{listid}
+      - PUT /subscribers/{listid}?email={email}
+      - POST /subscribers/{listid}/import
+      - GET /subscribers/{listid}?email={email}
+      - GET /subscribers/{listid}/history?email={email}
+      - POST /subscribers/{listid}/unsubscribe
+      - DELETE /subscribers/{listid}?email={email}
+    relationships:
+      - belongs_to: List
+        via: listid path segment
+      - has_many: CustomFieldValue
+        via: CustomFields[] on the subscriber payload
+  - name: CustomField
+    description: A per-list typed field. Keys are wrapped in square brackets, e.g. [website].
+    id_field: CustomFieldKey
+    data_types: [Text, Number, MultiSelectOne, MultiSelectMany, Date, Country, USState]
+    endpoints:
+      - POST /lists/{listid}/customfields
+      - PUT /lists/{listid}/customfields/{customfieldkey}
+      - PUT /lists/{listid}/customfields/{customfieldkey}/options
+      - DELETE /lists/{listid}/customfields/{customfieldkey}
+    relationships:
+      - belongs_to: List
+  - name: Segment
+    description: >-
+      A saved rule set over a list, expressed as RuleGroups of Rules of Clauses.
+      Engagement segments are system-provided and cannot be modified (error 284)
+      and require the Premier plan (error 286).
+    id_field: SegmentID
+    endpoints:
+      - POST /segments/{listid}
+      - PUT /segments/{segmentid}
+      - POST /segments/{segmentid}/rules
+      - GET /segments/{segmentid}
+      - GET /segments/{segmentid}/active
+      - DELETE /segments/{segmentid}
+      - DELETE /segments/{segmentid}/rules
+    relationships:
+      - belongs_to: List
+        via: created at POST /segments/{listid}
+      - has_many: SegmentRule
+      - references: Campaign
+        via: CampaignOpened / CampaignClicked rule types take a CampaignID
+  - name: Campaign
+    description: >-
+      A one-off email send. Created as a draft (from content or from a template),
+      then sent or scheduled. Reporting is a family of paginated sub-resources.
+    id_field: CampaignID
+    endpoints:
+      - POST /campaigns/{clientid}
+      - POST /campaigns/{clientid}/fromtemplate
+      - POST /campaigns/{campaignid}/send
+      - POST /campaigns/{campaignid}/sendpreview
+      - POST /campaigns/{campaignid}/unschedule
+      - GET /campaigns/{campaignid}/summary
+      - DELETE /campaigns/{campaignid}
+    relationships:
+      - belongs_to: Client
+        via: created at POST /campaigns/{clientid}
+      - has_many: List
+        as: recipients
+        via: GET /campaigns/{campaignid}/listsandsegments
+      - has_many: Segment
+        as: recipients
+        via: GET /campaigns/{campaignid}/listsandsegments
+      - has_one: Template
+        via: POST /campaigns/{clientid}/fromtemplate
+      - has_many: Tag
+      - has_many: CampaignEvent
+        via: /recipients, /opens, /clicks, /bounces, /unsubscribes, /spam, /emailclientusage
+  - name: CampaignEvent
+    description: >-
+      Per-recipient reporting rows — opens, clicks, bounces, unsubscribes, spam
+      complaints, email client usage. All paginated and filterable by a date
+      watermark.
+    id_field: null
+    relationships:
+      - belongs_to: Campaign
+      - references: Subscriber
+        via: EmailAddress
+  - name: Template
+    description: >-
+      A reusable HTML email template with editable regions, repeaters, layouts
+      and datarepeaters. Template validation is strict and produces its own error
+      class (4001-4511).
+    id_field: TemplateID
+    endpoints:
+      - POST /templates/{clientid}
+      - GET /templates/{templateid}
+      - PUT /templates/{templateid}
+      - POST /templates/{templateid}/copy
+      - DELETE /templates/{templateid}
+    relationships:
+      - belongs_to: Client
+      - referenced_by: Campaign
+  - name: Journey
+    description: >-
+      An automated multi-step program. The API is read-mostly — journeys are
+      built in the app; the API lists them, reports on their emails, copies them,
+      and (new in v3.3) triggers Subscriber Activity Journeys via event publish.
+    id_field: JourneyID
+    endpoints:
+      - GET /clients/{clientid}/journeys
+      - GET /journeys/{journeyid}
+      - POST /journeys/{journeyid}/copy
+      - POST /events/publish/{clientId}
+    relationships:
+      - belongs_to: Client
+      - has_many: JourneyEmail
+  - name: JourneyEmail
+    description: One email inside a journey, with its own reporting sub-resources.
+    id_field: emailId
+    endpoints:
+      - GET /journeys/email/{emailId}/recipients
+      - GET /journeys/email/{emailId}/opens
+      - GET /journeys/email/{emailId}/clicks
+      - GET /journeys/email/{emailId}/bounces
+      - GET /journeys/email/{emailId}/unsubscribes
+    relationships:
+      - belongs_to: Journey
+  - name: SmartEmail
+    description: >-
+      A transactional email whose content is authored in Campaign Monitor and
+      merged with Data variables at send time.
+    id_field: SmartEmailID
+    id_format: GUID
+    endpoints:
+      - GET /transactional/smartEmail
+      - GET /transactional/smartEmail/{smartEmailID}
+      - POST /transactional/smartEmail/{smartEmailID}/send
+    relationships:
+      - belongs_to: Client
+      - has_one: List
+        as: AddRecipientsToList
+      - has_many: TransactionalMessage
+  - name: TransactionalMessage
+    description: >-
+      A single delivered transactional message, addressed by MessageID (returned
+      per recipient in the 202 send response).
+    id_field: MessageID
+    id_format: GUID
+    endpoints:
+      - GET /transactional/messages
+      - GET /transactional/messages/{messageID}
+      - POST /transactional/messages/{messageID}/resend
+      - GET /transactional/statistics
+    relationships:
+      - belongs_to: Client
+      - references: SmartEmail
+        via: smartEmailID filter
+      - references: ClassicEmailGroup
+        via: group filter
+  - name: ClassicEmailGroup
+    description: A named grouping for classic (caller-supplied content) transactional email, used for reporting.
+    id_field: Group
+    endpoints:
+      - GET /transactional/classicEmail/groups
+      - POST /transactional/classicEmail/send
+    relationships:
+      - belongs_to: Client
+  - name: Webhook
+    description: A per-list HTTP callback registration for Subscribe, Update and Deactivate events.
+    id_field: WebhookID
+    endpoints:
+      - POST /lists/{listid}/webhooks
+      - GET /lists/{listid}/webhooks
+      - GET /lists/{listid}/webhooks/{webhookid}/test
+      - PUT /lists/{listid}/webhooks/{webhookid}/activate
+      - PUT /lists/{listid}/webhooks/{webhookid}/deactivate
+      - DELETE /lists/{listid}/webhooks/{webhookid}
+    relationships:
+      - belongs_to: List
+    detail: asyncapi/campaignmonitor-webhooks.yml
+  - name: SendingDomain
+    description: An authenticated sending domain (domain + DKIM selector) attached to a client.
+    id_field: sendingdomain + selector
+    endpoints:
+      - GET /clients/{clientid}/sendingdomains
+      - POST /clients/{clientid}/sendingdomains
+      - POST /clients/{clientid}/sendingdomains/copy
+      - PUT /clients/{clientid}/sendingdomains/authenticate
+      - DELETE /clients/{clientid}/sendingdomains
+    relationships:
+      - belongs_to: Client
+  - name: SuppressionList
+    description: Per-client list of addresses that must never be mailed. Managed by suppress/unsuppress.
+    id_field: null
+    endpoints:
+      - GET /clients/{clientid}/suppressionlist
+      - POST /clients/{clientid}/suppress
+      - PUT /clients/{clientid}/unsuppress?email={email}
+    relationships:
+      - belongs_to: Client
+  - name: Tag
+    description: A label applied to campaigns, used to filter sent-campaign listings. New in v3.3.
+    id_field: name
+    endpoints:
+      - GET /clients/{clientid}/tags
+    relationships:
+      - belongs_to: Client
+      - applied_to: Campaign
+identifier_conventions:
+  - ClientID, ListID, CampaignID, SegmentID, TemplateID and JourneyID are opaque 32-character lowercase hex strings.
+  - SmartEmailID and MessageID are GUIDs (error codes 925 and 904/905 enforce GUID form).
+  - Administrators, People and Subscribers have no opaque ID — they are addressed by email address, scoped to the account, client or list respectively.
+  - CustomField keys are wrapped in square brackets ([website]); a bare key returns error 253.
+summary:
+  entity_count: 21
+  root_entity: Account
+  primary_spine: Account -> Client -> List -> Subscriber
+  note: >-
+    Derived from documented endpoints, not from a machine-readable schema.
+    Campaign Monitor publishes no OpenAPI and no JSON Schema, so field-level
+    types beyond those the docs state explicitly are not asserted here.

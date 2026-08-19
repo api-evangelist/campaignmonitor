@@ -1,4 +1,4 @@
-generated: '2026-07-11'
+generated: '2026-08-13'
 method: searched
 probe: true
 source: https://trust.campaignmonitor.meetmarigold.com/
@@ -10,5 +10,6 @@ evidence:
 - source: https://trust.campaignmonitor.meetmarigold.com/
   keywords:
   - soc 2
+  - soc2
   - trust center
   - gdpr

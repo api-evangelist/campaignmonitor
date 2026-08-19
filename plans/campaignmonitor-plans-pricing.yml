@@ -1,7 +1,29 @@
 name: Campaign Monitor Plans and Pricing
 description: Pricing plans for Campaign Monitor email marketing platform, structured by contact count with varying feature access and email send limits.
-version: '0.1'
+version: '0.2'
+generated: '2026-08-13'
+method: searched
+source: https://www.campaignmonitor.com/pricing/
 url: https://www.campaignmonitor.com/pricing/
+plan_count: 5
+price_verified: false
+price_note: >-
+  Re-checked against https://www.campaignmonitor.com/pricing/ on 2026-08-13
+  (HTTP 200 with a browser User-Agent; the page 403s plain clients). The tier
+  names, ordering and feature ladder below were confirmed verbatim — Lite,
+  Essentials, Premier, Enterprise, with a Free plan referenced as the base
+  ("Get everything in the Free plan, plus:"). The NUMERIC PRICES could not be
+  re-verified: the page renders every amount client-side from a contact-count
+  selector, so the served HTML contains only "$ /month" placeholders. The dollar
+  figures below are carried forward from the earlier capture and should be
+  treated as indicative, not as a fetched value.
+pricing_axis: contact count (banded 0-500, 501-2,500, 2,501-5,000, 5,001-10,000, 10,001-15,000, 15,001-25,000, 25,001-50,000, 50,001+)
+billing_options: [monthly, annual]
+api_access: >-
+  API access is not sold separately — the REST API is available across plans.
+  Transactional email requires an active monthly plan (error 980 otherwise) and
+  its send volume is limited by subscriber tier. Engagement segments, used via
+  the Segments API, require Premier (error 286).
 plans:
   - name: Free Trial
     description: 30-day free trial with basic features and limited sends for up to 500 contacts.

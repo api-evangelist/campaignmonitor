@@ -1,0 +1,83 @@
+generated: '2026-08-13'
+method: searched
+source: https://www.campaignmonitor.com/api/v3-3/webhooks/
+description: >-
+  Campaign Monitor publishes no AsyncAPI document and no event-streaming surface.
+  It does publish a real, dated webhook contract for subscriber-list events,
+  managed through the Lists API. This artifact captures that catalog verbatim
+  from the provider's webhooks reference. Searched for an AsyncAPI at
+  /asyncapi.yaml, /asyncapi.json on both api.createsend.com and
+  www.campaignmonitor.com and across the github.com/campaignmonitor
+  organization — no result, so no AsyncAPI pointer is claimed.
+asyncapi_published: false
+event_surface: webhooks
+transport: HTTP POST to a subscriber-supplied URL
+payload_formats: [json, xml]
+payload_format_note: >-
+  The format is fixed at webhook-creation time (PayloadFormat property) and
+  applies to every delivery for that webhook.
+management_api:
+  create: POST https://api.createsend.com/api/v3.3/lists/{listid}/webhooks.{xml|json}
+  list: GET https://api.createsend.com/api/v3.3/lists/{listid}/webhooks.{xml|json}
+  test: GET https://api.createsend.com/api/v3.3/lists/{listid}/webhooks/{webhookid}/test.{xml|json}
+  activate: PUT https://api.createsend.com/api/v3.3/lists/{listid}/webhooks/{webhookid}/activate.{xml|json}
+  deactivate: PUT https://api.createsend.com/api/v3.3/lists/{listid}/webhooks/{webhookid}/deactivate.{xml|json}
+  delete: DELETE https://api.createsend.com/api/v3.3/lists/{listid}/webhooks/{webhookid}.{xml|json}
+  docs: https://www.campaignmonitor.com/api/v3-3/lists/
+scope: per subscriber list
+event_count: 3
+events:
+  - name: Subscribe
+    description: >-
+      Someone subscribes to one of your lists. Triggered when subscribers are
+      manually entered on the Add Subscribers page, imported from file, moved
+      from an inactive state to Active, subscribe via a signup form, or are added
+      through the API. For confirmed opt-in lists the event fires when the
+      verification link in the confirmation email is clicked.
+    payload_fields: [Type, Date, EmailAddress, Name, SignupIPAddress, "CustomFields[]", ListID]
+  - name: Update
+    description: >-
+      A subscriber's details are updated — on the Edit Subscriber page, by
+      re-importing an existing subscriber from file, by the subscriber via the
+      Preference Center, or by re-adding/updating through the API.
+    payload_fields: [Type, Date, OldEmailAddress, EmailAddress, Name, State, "CustomFields[]", ListID]
+  - name: Deactivate
+    description: A subscriber in your list is de-activated.
+    payload_fields: [Type, Date, EmailAddress, Name, State, "CustomFields[]", ListID]
+envelope:
+  shape: '{"Events": [ {...}, ... ], "ListID": "<list id>"}'
+  note: The payload is always an envelope carrying a batch of events plus the ListID, never a single bare event.
+delivery:
+  batching: true
+  max_events_per_request: 1000
+  batching_note: >-
+    Events are batched into one POST wherever possible. An import of 6,500
+    subscribers arrives as a series of POSTs of up to 1,000 subscribe events each.
+  retry_policy: >-
+    Campaign Monitor does not publish a retry schedule. It does publish the
+    failure outcome: sustained errors on a URL for more than a week cause the
+    webhook to be automatically deactivated.
+  auto_deactivation_after: 7 days of sustained errors
+  expected_response: HTTP 2xx
+signing:
+  supported: false
+  header: null
+  note: >-
+    No signature or shared-secret header is documented. A receiver cannot verify
+    that a delivery originated from Campaign Monitor other than by network
+    controls or by treating the payload as untrusted and re-reading state from
+    the API. This is the single largest gap in the webhook contract.
+testing:
+  endpoint: GET /lists/{listid}/webhooks/{webhookid}/test.{xml|json}
+  note: >-
+    Campaign Monitor's own docs point at third-party tools (RequestBin, ngrok)
+    for local webhook development; there is no first-party event simulator.
+errors:
+  - code: 601
+    message: Invalid Webhook URL
+  - code: 602
+    message: Invalid Webhook Format — supported formats are json and xml
+  - code: 603
+    message: Invalid Webhook Event — at least one supplied event is not valid
+  - code: 610
+    message: The webhook request has failed (test delivery could not reach the URL)

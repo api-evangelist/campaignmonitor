@@ -1,0 +1,159 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://www.campaignmonitor.com/api/v3-3/getting-started/ (Input & Output,
+  Response status codes, Making things Pretty, Rate Limiting) plus the paginated
+  collection endpoints documented across
+  https://www.campaignmonitor.com/api/v3-3/{campaigns,clients,lists,segments,journeys}/.
+  Campaign Monitor publishes no OpenAPI, so every convention here was read from
+  the provider's own reference pages.
+description: >-
+  Cross-cutting request/response semantics for the Campaign Monitor API — the
+  behaviour that applies to every endpoint rather than to any single operation.
+  Two things stand out for an agent: there is no idempotency mechanism of any
+  kind, and the API is XML-first (it returns XML unless you ask for JSON), which
+  is unusual for a 2020s REST API and is the most common integration surprise.
+base_url: https://api.createsend.com/api/v3.3
+api_style: REST over HTTPS; JSON or XML request and response bodies
+
+authentication:
+  scheme: OAuth 2.0 bearer token, or API key as the HTTP Basic username
+  docs: https://www.campaignmonitor.com/api/v3-3/getting-started/
+  detail: authentication/campaignmonitor-authentication.yml
+
+content_negotiation:
+  mechanism: file-extension suffix on the route
+  formats: [json, xml]
+  default: xml
+  json_route: "GET /clients.json"
+  xml_route: "GET /clients.xml"
+  accept_header_alternative: "Accept: application/json"
+  exceptions:
+    - path: /transactional/*
+      note: Transactional endpoints are JSON only — no .xml representation exists.
+  note: >-
+    The documentation states plainly: "The rest of the API will return XML by
+    default so we recommend including Accept: application/json in your header,
+    or append all requests with .json". Query-string input must be URL-encoded.
+
+idempotency:
+  supported: false
+  mechanism: null
+  docs: null
+  note: >-
+    Campaign Monitor documents no idempotency key, no request-replay protection
+    and no Idempotency-Key (or equivalent) header. Retrying a POST such as
+    "Send a campaign" or "Send a smart email" is not safe by contract. The
+    nearest thing to a guard is per-resource state checking — for example error
+    331 "Campaign has already been sent" and 201 "Already subscribed" — which
+    makes some retries fail loudly rather than duplicate, but this is
+    endpoint-specific behaviour, not a documented idempotency guarantee.
+
+pagination:
+  style: page-number
+  applies_to: >-
+    Collection endpoints that can grow unbounded — campaign recipients, opens,
+    clicks, bounces, unsubscribes, spam complaints; list active/unconfirmed/
+    unsubscribed/bounced/deleted subscribers; segment active subscribers; client
+    suppression list, sent/scheduled/draft campaigns; journey email reports.
+  request_params:
+    page: 1-based page number (default 1). Invalid values return code 800.
+    pagesize: Results per page. Must be between 10 and 1000 (default 1000). Invalid values return code 801.
+    orderfield: Sort field — email, name or date depending on the endpoint. Invalid values return code 802.
+    orderdirection: asc or desc. Invalid values return code 803.
+    date: Many report endpoints additionally take date={YYYY-MM-DD HH:MM} as a "changed since" filter.
+  response_fields:
+    Results: array of results for the requested page
+    ResultsOrderedBy: the field the results were ordered by
+    OrderDirection: asc or desc
+    PageNumber: current page
+    PageSize: page size in effect
+    RecordsOnThisPage: count of records in this page
+    TotalNumberOfRecords: total matching records
+    NumberOfPages: total page count
+  note: >-
+    v3.3 newly paginated "Get sent campaigns", capped at 1000 entries per call —
+    a breaking change from v3.2 for any client that assumed the full list came
+    back in one response.
+
+filtering_and_sorting:
+  supported: true
+  detail: >-
+    Sent campaigns can be filtered by sentFromDate / sentToDate and by tags, and
+    sorted by sent date (new in v3.3). Subscriber collections accept a date
+    watermark. Transactional message listings page by sentBeforeID / sentAfterID
+    (GUID cursors) rather than by page number — the one cursor-shaped surface in
+    the API.
+
+field_expansion:
+  supported: false
+  note: No expand / include / fields parameter. Related objects are fetched with separate calls.
+
+sparse_fieldsets:
+  supported: false
+
+metadata:
+  supported: true
+  mechanism: List custom fields
+  note: >-
+    Arbitrary key/value data is attached to subscribers through per-list Custom
+    Fields (created via POST /lists/{listid}/customfields), keyed with square
+    brackets — [website]. There is no generic metadata bag on other objects.
+
+pretty_printing:
+  supported: true
+  param: pretty=true
+  note: Append pretty=true to any request to get indented, human-readable output.
+
+request_tracing:
+  request_id_header: null
+  correlation_id: null
+  note: >-
+    No request-id or correlation-id response header is documented. For
+    transactional sends the per-recipient MessageID returned in the 202 body is
+    the only durable handle on a request, and it is also the key for
+    GET /transactional/messages/{messageID}.
+
+versioning:
+  scheme: URI path segment
+  current: v3.3
+  example: https://api.createsend.com/api/v3.3/clients.json
+  previous: v3.2 (documentation retained at https://www.campaignmonitor.com/api/v3-2/)
+  breaking_change_policy: >-
+    Breaking changes are shipped in a new path version and enumerated on the
+    What's New page. Old versions are not given a published sunset date.
+  detail: lifecycle/campaignmonitor-lifecycle.yml
+
+error_envelope:
+  format: proprietary
+  shape: '{"Code": <int>, "Message": "<string>"}'
+  rfc9457: false
+  note: >-
+    Numeric application codes are the stable identifier; HTTP status is coarse.
+    401 is used both for authentication failure and for referencing a resource
+    that does not belong to you.
+  detail: errors/campaignmonitor-error-codes.yml
+
+rate_limiting:
+  scope: /transactional endpoints only
+  headers: [X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset]
+  exhaustion_status: 429
+  detail: rate-limits/campaignmonitor-rate-limits.yml
+
+webhooks:
+  supported: true
+  events: [Subscribe, Update, Deactivate]
+  signing: false
+  note: >-
+    No signature header is documented on outbound webhook POSTs — receivers
+    cannot cryptographically verify origin. Events are batched up to 1000 per
+    request, and a URL erroring for more than a week is automatically
+    deactivated.
+  detail: asyncapi/campaignmonitor-webhooks.yml
+
+batch_limits:
+  subscriber_import_max: 1000
+  webhook_events_per_post_max: 1000
+  transactional_recipients_max: 25
+  transactional_data_field_max: 100 KB
+  campaign_preview_recipients_max: 15

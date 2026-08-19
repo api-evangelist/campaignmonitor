@@ -1,0 +1,84 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://www.campaignmonitor.com/api/ (version notice and TLS deprecation
+  statement), https://www.campaignmonitor.com/api/v3-3/whats-new/ (the 3.2 ->
+  3.3 breaking-change list), https://www.campaignmonitor.com/api/v3-2/ (the
+  retained previous-version documentation), https://status.campaignmonitor.com/
+  (probed 2026-08-13, HTTP 200 — it is the shared "Marigold status page").
+description: >-
+  Versioning, deprecation and availability posture for the Campaign Monitor API.
+  The honest summary: versions are path-based and previous-version docs stay up,
+  but there is no dated deprecation policy, no Sunset/Deprecation headers, no
+  published sunset date for v3.2, and no public numeric SLA.
+versioning:
+  scheme: URI path segment
+  mechanism: /api/v{major}.{minor}/ in the request path
+  current: v3.3
+  previous: v3.2
+  example: https://api.createsend.com/api/v3.3/clients.json
+  docs: https://www.campaignmonitor.com/api/
+  notes: >-
+    Minor version bumps carry breaking changes — the 3.2 -> 3.3 move paginated
+    "Get sent campaigns" (capped at 1000 entries per call) and changed several
+    response payloads. Campaign Monitor labels these explicitly as "breaking
+    changes" on the What's New page.
+deprecation:
+  policy_url: null
+  policy_published: false
+  changelog: https://www.campaignmonitor.com/api/v3-3/whats-new/
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  notes: >-
+    No deprecation policy document, no notice period, and no RFC 8594
+    Sunset/Deprecation response headers. Previous-version documentation remains
+    published at /api/v3-2/ and the v3.2 routes continue to answer, but no
+    end-of-life date has been announced for them. The API does carry one
+    in-band deprecation signal: error code 110, "Deprecated Method", returned
+    when updating client details the old way.
+  deprecated_items:
+    - item: Legacy TLS 1.0 and 1.1 transport
+      status: removed
+      replacement: TLS 1.2
+      evidence: >-
+        "We have deprecated support for the legacy TLS connections v1.0 & v1.1.
+        TLS v1.2 is our current supported protocol at this time."
+        (https://www.campaignmonitor.com/api/)
+    - item: Updating client details via the legacy method
+      status: deprecated
+      code: 110
+      evidence: >-
+        Error 110 "Deprecated Method" on the Clients API
+        (https://www.campaignmonitor.com/api/v3-3/clients/)
+    - item: API v3.2
+      status: superseded
+      replacement: v3.3
+      sunset_date: null
+      evidence: https://www.campaignmonitor.com/api/v3-2/ remains published; no end-of-life date announced.
+sla:
+  url: null
+  public_uptime_target: null
+  notes: >-
+    No public numeric uptime SLA for the API. Availability commitments, where
+    they exist, sit inside enterprise agreements.
+status_page:
+  url: https://status.campaignmonitor.com/
+  http_status: 200
+  provider: Marigold (shared status page across the Marigold brand family)
+  probed: '2026-08-13'
+  notes: >-
+    The status page is branded "Marigold status page" rather than Campaign
+    Monitor specifically, and it returns 403 to plain automated clients — it
+    answered 200 only with a browser User-Agent. There is no documented
+    machine-readable status feed (no /api/v2/status.json Statuspage endpoint).
+support:
+  help_center: https://help.campaignmonitor.com/
+  vulnerability_disclosure: security/campaignmonitor-vulnerability-disclosure.yml
+  trust_center: https://trust.campaignmonitor.meetmarigold.com/
+ownership:
+  parent: Marigold
+  note: >-
+    Campaign Monitor is a Marigold brand ("Campaign Monitor by Marigold"). The
+    trust center and status page are Marigold-hosted, which is why they sit on
+    meetmarigold.com rather than campaignmonitor.com.

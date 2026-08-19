@@ -1,0 +1,119 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://www.campaignmonitor.com/api/v3-3/getting-started/ ("Grab a Wrapper" —
+  the provider names Ruby, Python, PHP, Java, .NET, Perl and Objective-C as the
+  official wrapper set), cross-checked against the github.com/campaignmonitor
+  organization and each language's public package registry. Versions and
+  publish dates were read from the registry metadata endpoints
+  (rubygems.org/api/v1, pypi.org/pypi, repo.packagist.org/p2,
+  search.maven.org/solrsearch, azuresearch-usnc.nuget.org/query,
+  fastapi.metacpan.org, cocoapods.org) on 2026-08-13.
+description: >-
+  Campaign Monitor's first-party API wrappers. All seven are published under the
+  campaignmonitor GitHub organization and all seven ship to a public registry.
+  Currency is the story here: the actively maintained core (Ruby, Python, PHP,
+  Perl) all released in mid-2025 or later, while the Java client's last Maven
+  Central release is 7.0.1 (Dec 2022) and the Objective-C client's last CocoaPods
+  release is 1.1.1, with the repo untouched since 2021 — both predate API v3.3
+  additions, so they cannot cover the current surface.
+packages:
+  - language: ruby
+    registry: rubygems
+    name: createsend
+    url: https://rubygems.org/gems/createsend
+    source: https://github.com/campaignmonitor/createsend-ruby
+    install: gem install createsend
+    official: true
+    version: 6.1.2
+    published: '2025-06-17'
+    note: Documented as the Ruby wrapper on the Getting Started page; docs site at campaignmonitor.github.io/createsend-ruby/
+  - language: python
+    registry: pypi
+    name: createsend
+    url: https://pypi.org/project/createsend/
+    source: https://github.com/campaignmonitor/createsend-python
+    install: pip install createsend
+    official: true
+    version: 9.1.4
+    published: '2025-06-16'
+  - language: php
+    registry: packagist
+    name: campaignmonitor/createsend-php
+    url: https://packagist.org/packages/campaignmonitor/createsend-php
+    source: https://github.com/campaignmonitor/createsend-php
+    install: composer require campaignmonitor/createsend-php
+    official: true
+    version: v7.1.1
+    published: '2025-06-18'
+  - language: dotnet
+    registry: nuget
+    name: campaignmonitor-api
+    url: https://www.nuget.org/packages/campaignmonitor-api
+    source: https://github.com/campaignmonitor/createsend-dotnet
+    install: Install-Package campaignmonitor-api
+    official: true
+    version: 6.0.2
+    published: '2025-03-12'
+    note: >-
+      The repo is createsend-dotnet but the NuGet package id is
+      campaignmonitor-api (per the repo README install instructions). Targets
+      .NET Standard 2.0, .NET 4, .NET 3.5 and .NET 2.
+  - language: perl
+    registry: cpan
+    name: Net::CampaignMonitor
+    url: https://metacpan.org/dist/Net-CampaignMonitor
+    source: https://github.com/campaignmonitor/createsend-perl
+    install: cpanm Net::CampaignMonitor
+    official: true
+    version: v2.2.2
+    published: '2025-07-02'
+  - language: java
+    registry: maven
+    name: com.createsend:createsend-java
+    url: https://central.sonatype.com/artifact/com.createsend/createsend-java
+    source: https://github.com/campaignmonitor/createsend-java
+    install: "<dependency><groupId>com.createsend</groupId><artifactId>createsend-java</artifactId><version>7.0.1</version></dependency>"
+    official: true
+    version: 7.0.1
+    published: '2022-12-07'
+    note: >-
+      Decay signal — the GitHub repo was pushed 2026-04-05 but Maven Central has
+      had no release since 7.0.1 in December 2022, so the published artifact
+      predates the v3.3 API additions (tags, journey copy, ListJoinedDate,
+      MobileNumber/ConsentToSendSms).
+  - language: objective-c
+    registry: cocoapods
+    name: CreateSend
+    url: https://cocoapods.org/pods/CreateSend
+    source: https://github.com/campaignmonitor/createsend-objectivec
+    install: pod 'CreateSend'
+    official: true
+    version: 1.1.1
+    published: null
+    note: >-
+      CocoaPods exposes no dated metadata endpoint for this pod, so the release
+      date is recorded as null rather than guessed; the latest version shown on
+      cocoapods.org/pods/CreateSend is 1.1.1 and the source repo has not been
+      pushed since 2021-12-07. Effectively unmaintained.
+third_party:
+  - language: javascript
+    registry: npm
+    name: createsend-node
+    url: https://www.npmjs.com/package/createsend-node
+    source: https://github.com/nufyoot/createsend-node
+    official: false
+    version: 0.8.2
+    published: '2015-09-23'
+    note: >-
+      NOT first-party — published by an individual (nufyoot), not the
+      campaignmonitor organization, and the Getting Started page does not list a
+      JavaScript wrapper. Recorded because Node/JavaScript is the single largest
+      gap in Campaign Monitor's official SDK coverage and the only thing filling
+      it is an unmaintained 2015 community package.
+summary:
+  official_count: 7
+  third_party_count: 1
+  languages: [ruby, python, php, dotnet, perl, java, objective-c]
+  missing_languages: [javascript, go, rust]
+  stale_official: [com.createsend:createsend-java, CreateSend]
