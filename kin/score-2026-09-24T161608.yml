@@ -1,21 +1,19 @@
-# Kin Score artifact — campaignmonitor — 2026-09-02T224043
+# Kin Score artifact — campaignmonitor — 2026-09-24T161608
 # The API Evangelist rating (https://github.com/api-evangelist/kin-score). Generated; do not edit.
 ---
 kin_score:
   slug: campaignmonitor
-  schema_version: 0.18.0
-  scored_at: '2026-09-02'
-  run_ts: 2026-09-02T224043
+  schema_version: 0.22.0
+  scored_at: '2026-09-24'
+  run_ts: 2026-09-24T161608
   composite: 70.0
   band: exemplar
   facets:
     discoverability: 68.5
     contract_quality: 51.9
-    governance: 18.2
+    contract_governance: 18.2
     operational_transparency: 76.3
     developer_ergonomics: 57.1
-    commercial_clarity: 100.0
-    contract_governance: 18.2
     access_clarity: 100.0
   agent_readiness:
     score: 25.2
