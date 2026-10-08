@@ -99,3 +99,41 @@ plans:
       - Proactive deliverability monitoring
       - Quarterly business reviews
       - Custom volume pricing
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - free
+  - subscription
+  units: []
+  plans:
+  - name: Free Trial
+    access: other
+    model: free
+    model_how: derived
+    units: []
+    periods: []
+  - name: Lite
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods: []
+  - name: Essentials
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods: []
+  - name: Premier
+    access: other
+    model: subscription
+    model_how: derived
+    units: []
+    periods: []
+  - name: Enterprise
+    access: other
+    model: free
+    model_how: derived
+    units: []
+    periods: []
