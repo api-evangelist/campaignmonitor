@@ -51,7 +51,7 @@
     app_slug: campaign-monitor
     beta: false
     builder: unknown (not in the directory record)
-  status: pending-partner-spec
+  status: not-a-workflow
   arazzo: null
 - slug: campaignmonitor-wordpress-own
   label: WordPress (own)
