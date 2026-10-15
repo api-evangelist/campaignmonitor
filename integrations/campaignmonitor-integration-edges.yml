@@ -35,8 +35,26 @@ edges:
   detected: '2026-10-14'
   detected_by: mirror-platform-listings.py
   category: Nurture Customers
+- partner_name: WordPress (own)
+  partner: wordpress
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://wordpress.org/plugins/forms-for-campaign-monitor/
+  mirror_of: wordpress/integrations/wordpress-integration-edges.yml
+  apps:
+  - Campaign Monitor for WordPress
+  listing_count: 1
+  detected: '2026-10-15'
+  detected_by: mirror-platform-listings.py
+  category: WordPress plugin
 method: searched
 checked:
 - freshbooks/integrations/freshbooks-integration-edges.yml
 - https://hightouch.com/docs/destinations/campaign-monitor
+- wordpress/integrations/wordpress-integration-edges.yml
 source: https://hightouch.com/docs/destinations/campaign-monitor
