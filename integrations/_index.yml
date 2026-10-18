@@ -94,7 +94,7 @@
     - alpha
     in_cloud: true
     builder: unknown (community connector; contributor not in the record)
-  status: pending-partner-spec
+  status: not-a-workflow
   arazzo: null
 - slug: campaignmonitor-fivetran
   label: Fivetran
@@ -120,7 +120,7 @@
     - connectors/applications/campaignmonitor
     vendor_link: https://www.campaignmonitor.com/
     builder: Fivetran
-  status: pending-partner-spec
+  status: not-a-workflow
   arazzo: null
 - slug: campaignmonitor-meltano
   label: Meltano
@@ -154,5 +154,5 @@
     - silver
     - unknown
     builder: 'community (Meltano Hub variant maintainers: dbt-labs, radico, sbwheeler, singer-io)'
-  status: pending-partner-spec
+  status: not-a-workflow
   arazzo: null
