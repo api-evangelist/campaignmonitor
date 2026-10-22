@@ -1,0 +1,122 @@
+generated: '2026-10-21'
+method: searched
+probe: true
+source: https://www.campaignmonitor.com/policies/
+note: >-
+  All signals come from the single consolidated Policies page (Terms of Use, Acceptable Use Policy,
+  Privacy Notice and Services Privacy Notice are sections of one document at
+  https://www.campaignmonitor.com/policies/). A plain curl returned 403; fetch-url.py (plain strategy,
+  browser UA) returned 200 with the full text. Signals not listed here (incident_notification,
+  global_privacy_control, accessibility_conformance, transparency_report, sbom, etc.) were not
+  spoken to on this page.
+signals:
+  data_subject_request:
+    url: https://www.campaignmonitor.com/policies/#privacy-policy
+    section: Access, Correction, and Deletion
+    rights_named: [know, access, correct, delete, opt out of sale or sharing, limit use of sensitive personal information, non-discrimination]
+    evidence:
+    - source: https://www.campaignmonitor.com/policies/
+      http_status: 200
+      fetched: '2026-10-21'
+      quote: >-
+        California consumers whose Personal Data is Processed by Campaign Monitor acting as a business under
+        CPRA may, no more than twice in a 12 month period and at no cost to them, request a report from us
+        which details the Personal Data collected about them and the recipients, if any, of that information,
+        as well as the business or commercial purpose for collecting personal information and the categories
+        of sources from which the personal information is collected.
+    - source: https://www.campaignmonitor.com/policies/
+      http_status: 200
+      fetched: '2026-10-21'
+      quote: >-
+        If you are a Customer Data Subject and wish to have your Personal Data deleted, please contact the
+        Customer directly so we may assist them in carrying out your request.
+    note: >-
+      Campaign Monitor publishes a CPRA access/correction/deletion route for people it processes data about
+      as a business (requests via a support request form, per the same paragraph), while subscribers whose
+      data a customer uploads (Customer Data Subjects) are routed to the customer as controller.
+  subprocessors:
+    url: https://www.campaignmonitor.com/policies/#privacy-policy
+    section: Do you transfer my personal data outside the EEA, Switzerland, or UK?
+    evidence:
+    - source: https://www.campaignmonitor.com/policies/
+      http_status: 200
+      fetched: '2026-10-21'
+      quote: >-
+        Our sub-processors may Process Personal Data in additional jurisdictions.
+    note: >-
+      The page acknowledges sub-processors and that they may process data outside Campaign Monitor's own
+      jurisdictions, but no sub-processor list was found on this page.
+  data_residency:
+    url: https://www.campaignmonitor.com/policies/#privacy-policy
+    section: Do you transfer my personal data outside the EEA, Switzerland, or UK?
+    regions_named: [United States, United Kingdom, European Union, Australia]
+    transfer_mechanism: EU Standard Contractual Clauses
+    evidence:
+    - source: https://www.campaignmonitor.com/policies/
+      http_status: 200
+      fetched: '2026-10-21'
+      quote: >-
+        In most cases, yes. Processing may occur in any jurisdiction in which Campaign Monitor is established,
+        including the United States, United Kingdom, European Union, and Australia.
+    - source: https://www.campaignmonitor.com/policies/
+      http_status: 200
+      fetched: '2026-10-21'
+      quote: >-
+        In particular, we implement the European Commission’s Standard Contractual Clauses (“EU SCCs”) for
+        transfers of Personal Data between our group companies, which require all group companies to protect
+        Personal Data they process from the EEA or UK in accordance with European Union and UK data protection law.
+    note: >-
+      No customer-selectable data residency is offered on this page; processing location is described as
+      multi-jurisdictional, with SCCs as the transfer safeguard.
+  ai_transparency:
+    url: https://www.campaignmonitor.com/policies/
+    section: SECTION 8. GENERATIVE AI TERMS
+    evidence:
+    - source: https://www.campaignmonitor.com/policies/
+      http_status: 200
+      fetched: '2026-10-21'
+      quote: >-
+        “Generative AI Services” means functionality included in the Services that use algorithms to produce
+        content, including, text, imagery, audio, or computer source code.
+    - source: https://www.campaignmonitor.com/policies/
+      http_status: 200
+      fetched: '2026-10-21'
+      quote: >-
+        Customer is prohibited from inputting or uploading any personal data (any information that identifies
+        an individual (directly or indirectly)) into the Generative AI Services.
+    note: >-
+      The Acceptable Use Policy discloses that the Services include generative AI functionality, treats Input
+      and Output as Customer Content, and bars personal data as input. It does not state which models are used
+      or whether Input is used for training.
+  data_retention:
+    url: https://www.campaignmonitor.com/policies/#privacy-policy
+    section: How long do you retain Personal Data?
+    evidence:
+    - source: https://www.campaignmonitor.com/policies/
+      http_status: 200
+      fetched: '2026-10-21'
+      quote: >-
+        The retention period for Personal Data depends on the purpose(s) for its Processing. We retain Personal
+        Data we collect from you only for as long as reasonably necessary to achieve that purpose.
+    - source: https://www.campaignmonitor.com/policies/
+      http_status: 200
+      fetched: '2026-10-21'
+      quote: >-
+        Personal Data is retained within the Services according to our Agreement with the Customer, including
+        our provision of assistance with regard to any individual’s request to have their Personal Data deleted.
+    note: Purpose-based retention, with no fixed periods stated; Services data follows the customer agreement.
+  exit_assistance:
+    url: https://www.campaignmonitor.com/policies/#terms-of-use
+    section: Effect of Termination
+    evidence:
+    - source: https://www.campaignmonitor.com/policies/
+      http_status: 200
+      fetched: '2026-10-21'
+      quote: >-
+        (d) Company may delete Customer Content and/or any archived data within 30 days after the date of
+        expiration or any termination of this Agreement. Any statutory retention requirements with respect to
+        Customer Content remains Customer’s responsibility.
+    note: >-
+      The terms set a 30-day post-termination deletion window and leave retention to the customer. They make
+      no data-export or transition-assistance commitment, which is recorded here as an absence of exit
+      assistance rather than a right.

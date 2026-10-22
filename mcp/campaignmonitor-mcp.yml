@@ -1,4 +1,4 @@
-generated: '2026-08-13'
+generated: '2026-10-21'
 method: derived
 status: candidate
 source: >-
@@ -132,6 +132,30 @@ tools:
     description: Get transactional delivery statistics for a group or smart email over a date range.
     method: GET
     path: /transactional/statistics
+community_servers:
+  note: >-
+    Third-party MCP servers for Campaign Monitor exist; none is published or
+    endorsed by Campaign Monitor, and none changes deployment.mode above, which
+    describes the provider's own offering. Listed here as observed (HTTP 200 on
+    2026-10-21) and not called. Tool counts are what the directory listings say
+    and were not verified.
+  servers:
+    - name: cmon-mcp
+      official: false
+      repo: https://github.com/pauliowest/cmon-mcp
+      listing: https://glama.ai/mcp/servers/pauliowest/cmon-mcp
+    - name: campaign-monitor-mcp
+      official: false
+      maintainer: Kanopi
+      repo: https://github.com/kanopi/campaign-monitor-mcp
+      listing: https://glama.ai/mcp/servers/kanopi/campaign-monitor-mcp
+      transport_claimed: stdio
+recheck:
+  date: '2026-10-21'
+  result: >-
+    No official Campaign Monitor MCP server. The web search on 2026-10-21 turned
+    up only community and third-party connectors. The provider's docs still
+    contain no MCP documentation (pre-flight mcp_tool_table: no-mcp-docs-found).
 agent_safety:
   idempotency: >-
     NONE. Campaign Monitor documents no idempotency key. Any tool wrapping

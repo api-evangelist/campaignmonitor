@@ -1,23 +1,63 @@
-generated: '2026-10-14'
+generated: '2026-10-21'
+method: searched
+source:
+- https://hightouch.com/docs/destinations/campaign-monitor
+- https://zapier.com/apps/campaign-monitor/integrations
+checked:
+- freshbooks/integrations/freshbooks-integration-edges.yml
+- https://connectors.airbyte.com/files/registries/v0/cloud_registry.json
+- https://connectors.airbyte.com/files/registries/v0/oss_registry.json
+- https://fivetran.com/docs-sitemap.xml
+- https://fivetran.com/docs/connectors/partner-built-program
+- https://github.com/meltano/hub
+- https://hightouch.com/docs/destinations/campaign-monitor
+- https://zapier.com/api/v4/apps/
+- wordpress/integrations/wordpress-integration-edges.yml
+- https://composio.dev/toolkits/campaignmonitor
+- https://monid.ai/tools/campaignmonitor
+- https://n8n.io/integrations/campaignmonitor/
+- https://zapier.com/apps/campaign-monitor/integrations
+- https://zapier.com/apps/campaignmonitor/integrations
+summary: null
+marketplace_apps:
+- marketplace: zapier
+  channel: ipaas-listing
+  app: campaign-monitor
+  url: https://zapier.com/apps/campaign-monitor/integrations
+  external_url: https://go.campaignmonitor.com/partner-referral?referring_partner=Zapier
+  partner_tier: GOLD
+  triggers:
+  - key: bounce
+    label: New Bounce
+  - key: click
+    label: New Click Through
+  - key: client
+    label: New Client
+  - key: list
+    label: New List
+  - key: open
+    label: New Email Open
+  - key: subscriber
+    label: New Subscriber
+  - key: transactional_bounce
+    label: New Bounced Transactional Message
+  - key: unsubscriber
+    label: New Unsubscribe
+  actions:
+  - key: send_smart_email
+    label: Send Smart Transactional Email
+  - key: subscriber
+    label: Add Subscriber
+  - key: unsubscriber
+    label: Unsubscribe
+  - key: update_subscriber
+    label: Update Subscriber
+  - key: _zap_raw_request
+    label: API Request (Beta)
+  searches:
+  - key: find_subscriber
+    label: Find Subscriber
 edges:
-- partner_name: Hightouch
-  partner: hightouch
-  partner_match: aggregator
-  marketplace: coverage
-  channel: partner-built
-  direction: partner-built
-  type: coverage
-  relationship: connector-coverage
-  evidence: https://hightouch.com/docs/destinations/campaign-monitor
-  coverage_role:
-  - destination
-  cdp_signals:
-    destination:
-      catalog_entries:
-      - campaign-monitor
-      status: released
-  detected_by: sweep-cdp.py
-  first_seen: '2026-10-14'
 - partner_name: FreshBooks (own)
   partner: freshbooks
   partner_match: mirror
@@ -77,6 +117,24 @@ edges:
   detected: '2026-10-15'
   detected_by: mirror-platform-listings.py
   category: WordPress plugin
+- partner_name: Hightouch
+  partner: hightouch
+  partner_match: aggregator
+  marketplace: coverage
+  channel: partner-built
+  direction: partner-built
+  type: coverage
+  relationship: connector-coverage
+  evidence: https://hightouch.com/docs/destinations/campaign-monitor
+  coverage_role:
+  - destination
+  cdp_signals:
+    destination:
+      catalog_entries:
+      - campaign-monitor
+      status: released
+  detected_by: sweep-cdp.py
+  first_seen: '2026-10-14'
 - partner_name: Airbyte
   partner: airbyte
   partner_match: aggregator
@@ -167,15 +225,425 @@ edges:
     builder: 'community (Meltano Hub variant maintainers: dbt-labs, radico, sbwheeler, singer-io)'
   detected_by: sweep-data-integration.py
   first_seen: '2026-10-18'
-method: searched
-checked:
-- freshbooks/integrations/freshbooks-integration-edges.yml
-- https://connectors.airbyte.com/files/registries/v0/cloud_registry.json
-- https://connectors.airbyte.com/files/registries/v0/oss_registry.json
-- https://fivetran.com/docs-sitemap.xml
-- https://fivetran.com/docs/connectors/partner-built-program
-- https://github.com/meltano/hub
-- https://hightouch.com/docs/destinations/campaign-monitor
-- https://zapier.com/api/v4/apps/
-- wordpress/integrations/wordpress-integration-edges.yml
-source: https://hightouch.com/docs/destinations/campaign-monitor
+- partner_name: Typeform
+  partner: typeform
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/campaign-monitor/integrations/typeform
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: https://www.typeform.com/signup?utm_medium=referral&utm_source=zapier&utm_campaign=zapier_integration&utm_content=marketplace
+- partner_name: Squarespace Forms
+  partner: squarespace
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/campaign-monitor/integrations/squarespace-forms
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: https://www.squarespace.com/
+- partner_name: HubSpot
+  partner: hubspot
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/campaign-monitor/integrations/hubspot
+  direction: third-party
+  category: Marketing Automation
+  partner_url: http://www.hubspot.com/
+- partner_name: Facebook Lead Ads
+  partner: facebook-lead-ads
+  partner_match: domain+name-among-holders
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/campaign-monitor/integrations/facebook-lead-ads
+  direction: third-party
+  category: Ads & Conversion
+  partner_url: https://www.facebook.com/business/ads/lead-ads
+- partner_name: Eventbrite
+  partner: eventbrite
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/campaign-monitor/integrations/eventbrite
+  direction: third-party
+  category: Event Management
+  partner_url: https://eventbrite.com/
+- partner_name: Mailchimp
+  partner: mailchimp
+  partner_match: domain+name-among-holders
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/campaign-monitor/integrations/mailchimp
+  direction: third-party
+  category: Marketing Automation
+  partner_url: https://mailchimp.com/
+- partner_name: Airtable
+  partner: airtable
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/campaign-monitor/integrations/airtable
+  direction: third-party
+  category: Databases
+  partner_url: https://airtable.com/
+- partner_name: WooCommerce
+  partner: woocommerce
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/campaign-monitor/integrations/woocommerce
+  direction: third-party
+  category: eCommerce
+  partner_url: https://woocommerce.com/products/woocommerce-zapier/?utm_source=zapier&utm_medium=website&utm_campaign=integration
+- partner_name: Formidable Forms
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/campaign-monitor/integrations/formidable
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: http://formidableforms.com/
+- partner_name: Microsoft Dynamics 365 CRM
+  partner: microsoft-dynamics-365
+  partner_match: domain+name-among-holders
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/campaign-monitor/integrations/microsoft-dynamics-crm
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: https://dynamics.microsoft.com/
+- partner_name: Pipedrive
+  partner: pipedrive
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/campaign-monitor/integrations/pipedrive
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: https://pipedrive.com/
+- partner_name: Unbounce
+  partner: unbounce
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/campaign-monitor/integrations/unbounce
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: https://unbounce.com/
+- partner_name: monday.com
+  partner: monday-com
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/campaign-monitor/integrations/monday
+  direction: third-party
+  category: Project Management
+  partner_url: https://monday.com/
+- partner_name: Zoom
+  partner: zoom
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/campaign-monitor/integrations/zoom
+  direction: third-party
+  category: Video Conferencing
+  partner_url: https://www.zoom.us/
+- partner_name: Google Sheets
+  partner: google-sheets
+  partner_match: domain+name-among-holders
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/campaign-monitor/integrations/google-sheets
+  direction: third-party
+  category: Google
+  partner_url: http://sheets.google.com/
+- partner_name: Ninja Forms
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/campaign-monitor/integrations/ninjaforms
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: http://ninjaforms.com/extensions/zapier/
+- partner_name: Teachable
+  partner: teachable
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/campaign-monitor/integrations/teachable
+  direction: third-party
+  category: Online Courses
+  partner_url: https://teachable.com/
+- partner_name: Webflow
+  partner: webflow
+  partner_match: domain+name-among-holders
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/campaign-monitor/integrations/webflow
+  direction: third-party
+  category: Website Builders
+  partner_url: https://webflow.com/
+- partner_name: Wix
+  partner: wix
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/campaign-monitor/integrations/wix
+  direction: third-party
+  category: Website Builders
+  partner_url: https://www.wix.com/
+- partner_name: Intercom
+  partner: intercom
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/campaign-monitor/integrations/intercom
+  direction: third-party
+  category: Customer Support
+  partner_url: https://www.intercom.com/welcome-to-intercom?utm_source=external-website&utm_medium=partner&utm_campaign=20220503_all_oc_all_global_gl_all_all_par_extmktplc&utm_term=zapier
+- partner_name: Filevine
+  partner: filevine
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/campaign-monitor/integrations/filevine
+  direction: third-party
+  category: Project Management
+  partner_url: https://vineskills.com/filevine-zapier?utm_campaign=zapier_app_directory&utm_medium=organic&utm_source=zapier
+- partner_name: SendOwl
+  partner: sendowl
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/campaign-monitor/integrations/sendowl
+  direction: third-party
+  category: eCommerce
+  partner_url: https://www.sendowl.com/
+- partner_name: Microsoft Outlook
+  partner: microsoft-outlook
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/campaign-monitor/integrations/microsoft-outlook
+  direction: third-party
+  category: Calendar
+  partner_url: https://outlook.live.com/
+- partner_name: Raisely
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/campaign-monitor/integrations/raisely
+  direction: third-party
+  category: Fundraising
+  partner_url: https://raisely.com/
+- partner_name: Mautic
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/campaign-monitor/integrations/mautic
+  direction: third-party
+  category: Marketing Automation
+  partner_url: https://www.mautic.org/
+- partner_name: Kudosity
+  partner: kudosity
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/campaign-monitor/integrations/kudosity
+  direction: third-party
+  category: Phone & SMS
+  partner_url: https://kudosity.com/start-trial
+- partner_name: KickoffLabs
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/campaign-monitor/integrations/kickofflabs
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: https://kickofflabs.com/?utm_campaign=zapier
+- partner_name: Gmail
+  partner: gmail
+  partner_match: domain+name-among-holders
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/campaign-monitor/integrations/gmail
+  direction: third-party
+  category: Email
+  partner_url: https://mail.google.com/
+- partner_name: Shopify
+  partner: shopify
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/campaign-monitor/integrations/shopify
+  direction: third-party
+  category: eCommerce
+  partner_url: https://www.shopify.com/
+- partner_name: Microsoft Excel
+  partner: null
+  partner_match: null
+  partner_candidate: zapier
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/campaign-monitor/integrations/excel
+  direction: third-party
+  category: Microsoft
+  partner_url: https://zapier.com/office.com
+templates:
+- title: Add Campaign Monitor subscribers with new Leadpages form submissions
+  url: https://zapier.com/apps/campaign-monitor/integrations/leadpages/962417/add-campaign-monitor-subscribers-with-new-leadpages-form-submissions
+  apps:
+  - leadpages
+  - campaign-monitor
+- title: Add Campaign Monitor subscribers from new Webflow submissions
+  url: https://zapier.com/apps/campaign-monitor/integrations/webflow/962554/add-campaign-monitor-subscribers-from-new-webflow-submissions
+  apps:
+  - webflow
+  - campaign-monitor
+- title: Add Campaign Monitor subscribers from new Squarespace Forms form submissions
+  url: https://zapier.com/apps/campaign-monitor/integrations/squarespace-forms/962595/add-campaign-monitor-subscribers-from-new-squarespace-forms-form-submissions
+  apps:
+  - squarespace-forms
+  - campaign-monitor
+- title: Add new Pipedrive people to Campaign Monitor as subscribers
+  url: https://zapier.com/apps/campaign-monitor/integrations/pipedrive/12366/add-new-pipedrive-people-to-campaign-monitor-as-subscribers
+  apps:
+  - pipedrive
+  - campaign-monitor
+- title: Add Campaign Monitor subscribers from new Facebook Lead Ads leads
+  url: https://zapier.com/apps/campaign-monitor/integrations/facebook-lead-ads/10153/add-campaign-monitor-subscribers-from-new-facebook-lead-ads-leads
+  apps:
+  - facebook-lead-ads
+  - campaign-monitor
+- title: Add Campaign Monitor subscribers with new Google Sheets rows
+  url: https://zapier.com/apps/campaign-monitor/integrations/google-sheets/961179/add-campaign-monitor-subscribers-with-new-google-sheets-rows
+  apps:
+  - google-sheets
+  - campaign-monitor
+- title: Add new subscribers to Campaign Monitor for new emails on Gmail [Business Gmail Accounts Only]
+  url: https://zapier.com/apps/campaign-monitor/integrations/gmail/6974/add-new-subscribers-to-campaign-monitor-for-new-emails-on-gmail-business-gmail-accounts-only
+  apps:
+  - gmail
+  - campaign-monitor
+- title: Add Campaign Monitor subscribers for new attendees registered in Eventbrite
+  url: https://zapier.com/apps/campaign-monitor/integrations/eventbrite/183714/add-campaign-monitor-subscribers-for-new-attendees-registered-in-eventbrite
+  apps:
+  - eventbrite
+  - campaign-monitor
+- title: Add Campaign Monitor subscribers to Google Sheets rows.
+  url: https://zapier.com/apps/campaign-monitor/integrations/google-sheets/1211482/add-campaign-monitor-subscribers-to-google-sheets-rows
+  apps:
+  - campaign-monitor
+  - google-sheets
+- title: Add new Wix forms to Campaign Monitor as subscribers
+  url: https://zapier.com/apps/campaign-monitor/integrations/wix/1658228/add-new-wix-forms-to-campaign-monitor-as-subscribers
+  apps:
+  - wix
+  - campaign-monitor
+- title: Add new monday.com board items to Campaign Monitor as subscribers
+  url: https://zapier.com/apps/campaign-monitor/integrations/monday/1697128/add-new-mondaycom-board-items-to-campaign-monitor-as-subscribers
+  apps:
+  - monday
+  - campaign-monitor
+- title: Add new Campaign Monitor subscribers as contacts in HubSpot
+  url: https://zapier.com/apps/campaign-monitor/integrations/hubspot/1381867/add-new-campaign-monitor-subscribers-as-contacts-in-hubspot
+  apps:
+  - campaign-monitor
+  - hubspot
+template_total: 560

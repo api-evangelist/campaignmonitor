@@ -1,18 +1,16 @@
 aid: campaignmonitor
+
 name: Campaign Monitor
-description: >-
-  Campaign Monitor, a Marigold brand, is an email marketing platform for
-  marketers and agencies. Its REST API — served under the original createsend
-  name at api.createsend.com/api/v3.3 — manages clients, subscriber lists,
-  subscribers and custom fields, segments, campaigns, HTML templates, automated
-  journeys, authenticated sending domains and transactional email, and returns
-  per-recipient reporting for opens, clicks, bounces, unsubscribes and spam
-  complaints. Authentication is OAuth 2.0 with twelve coarse permissions, or an
-  API key over HTTP Basic. Per-list webhooks push Subscribe, Update and
-  Deactivate events. Campaign Monitor publishes no OpenAPI, no AsyncAPI and no
-  MCP server; the contract is HTML reference documentation plus seven official
-  client libraries.
+
+description: Campaign Monitor, a Marigold brand, is an email marketing platform for marketers and agencies. Its REST API — served under the original
+  createsend name at api.createsend.com/api/v3.3 — manages clients, subscriber lists, subscribers and custom fields, segments, campaigns, HTML
+  templates, automated journeys, authenticated sending domains and transactional email, and returns per-recipient reporting for opens, clicks,
+  bounces, unsubscribes and spam complaints. Authentication is OAuth 2.0 with twelve coarse permissions, or an API key over HTTP Basic. Per-list
+  webhooks push Subscribe, Update and Deactivate events. Campaign Monitor publishes no OpenAPI, no AsyncAPI and no MCP server; the contract is
+  HTML reference documentation plus seven official client libraries.
+
 type: Index
+
 deliveryModel:
   model: saas
   open_source: false
@@ -24,6 +22,7 @@ deliveryModel:
   - pricing
   generated: '2026-08-28'
   method: derived
+
 accessModel:
   pricing: freemium
   onboarding: unknown
@@ -36,186 +35,255 @@ accessModel:
   - plans
   generated: '2026-07-22'
   method: derived
+
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/campaignmonitor.png
+
 url: https://raw.githubusercontent.com/api-evangelist/campaignmonitor/refs/heads/main/apis.yml
+
 created: '2026-06-13'
-modified: '2026-08-13'
+
+modified: '2026-10-21'
+
 specificationVersion: '0.23'
+
 tags:
-  - Email Marketing
-  - Campaigns
-  - Subscribers
-  - Transactional Email
-  - Segments
-  - Newsletters
-  - Automation
-  - Marketing Automation
-  - Webhook
-  - Email Deliverability
-  - Marketing
+- Email Marketing
+- Campaigns
+- Subscribers
+- Transactional Email
+- Segments
+- Newsletters
+- Automation
+- Marketing Automation
+- Webhook
+- Email Deliverability
+- Marketing
+
 tags_raw:
+- Email Marketing
+- Campaigns
+- Subscribers
+- Transactional Email
+- Segments
+- Newsletters
+- Automation
+- Marketing Automation
+- Webhooks
+- Email Deliverability
+- Marketing
+
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
+
+common:
+- type: Spectral
+  url: rules/campaignmonitor-rules.yml
+- type: JSONLD
+  url: json-ld/campaignmonitor-context.jsonld
+- type: Vocabulary
+  url: vocabulary/campaignmonitor-vocabulary.yml
+- type: Deprecation
+  url: lifecycle/campaignmonitor-lifecycle.yml
+- type: Hosts
+  url: hosts/campaignmonitor-hosts.yml
+- type: IntegrationEdges
+  url: integrations/campaignmonitor-integration-edges.yml
+- type: Vendors
+  url: vendors/campaignmonitor-vendors.yml
+- type: TrustCenter
+  url: security/campaignmonitor-trust-center.yml
+- type: VulnerabilityDisclosure
+  url: security/campaignmonitor-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/campaignmonitor-domain-security.yml
+- type: Website
+  url: https://www.campaignmonitor.com/
+- type: Documentation
+  url: https://www.campaignmonitor.com/api/
+- type: GitHubOrg
+  url: https://github.com/campaignmonitor
+- type: LinkedIn
+  url: https://www.linkedin.com/company/campaign-monitor
+- type: Blog
+  url: https://www.campaignmonitor.com/blog/
+- type: Pricing
+  url: https://www.campaignmonitor.com/pricing/
+- type: StatusPage
+  url: https://status.campaignmonitor.com/
+- type: X
+  url: https://x.com/campaignmonitor
+- type: Plans
+  url: plans/campaignmonitor-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/campaignmonitor-rate-limits.yml
+- type: FinOps
+  url: finops/campaignmonitor-finops.yml
+- type: BlogPosts
+  url: blogs/blogs.json
+- type: JSONLDContext
+  url: json-ld/campaignmonitor-context.jsonld
+- type: DeveloperPortal
+  url: https://www.campaignmonitor.com/api/
+- type: APIReference
+  url: https://www.campaignmonitor.com/api/v3-3/
+- type: GettingStarted
+  url: https://www.campaignmonitor.com/api/v3-3/getting-started/
+- type: Support
+  url: https://help.campaignmonitor.com/
+- type: SignUp
+  url: https://www.campaignmonitor.com/signup/
+- type: Login
+  url: https://login.createsend.com/
+- type: TermsOfService
+  url: https://www.campaignmonitor.com/policies/#terms-of-use
+- type: PrivacyPolicy
+  url: https://www.campaignmonitor.com/policies/#privacy-policy
+- type: Integrations
+  url: https://www.campaignmonitor.com/integrations/
+- type: Packages
+  url: packages/campaignmonitor-packages.yml
+- type: SDKs
+  url: packages/campaignmonitor-packages.yml
+- type: WellKnown
+  url: well-known/campaignmonitor-well-known.yml
+- type: SecurityTxt
+  url: well-known/campaignmonitor-security.txt
+- type: Security
+  url: security/campaignmonitor-vulnerability-disclosure.yml
+- type: Compliance
+  url: conformance/campaignmonitor-conformance.yml
+- type: Conformance
+  url: conformance/campaignmonitor-conformance.yml
+- type: Authentication
+  url: authentication/campaignmonitor-authentication.yml
+- type: OAuthScopes
+  url: scopes/campaignmonitor-scopes.yml
+- type: Conventions
+  url: conventions/campaignmonitor-conventions.yml
+- type: ErrorCatalog
+  url: errors/campaignmonitor-error-codes.yml
+- type: Lifecycle
+  url: lifecycle/campaignmonitor-lifecycle.yml
+- type: ChangeLog
+  url: changelog/campaignmonitor-changelog.yml
+- type: DataModel
+  url: data-model/campaignmonitor-data-model.yml
+- type: Webhooks
+  url: asyncapi/campaignmonitor-webhooks.yml
+- type: X-MCPServerCandidate
+  url: mcp/campaignmonitor-mcp.yml
+  note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate — a tool list derived from the published
+    API contracts, not an existing server. The scorer already read the manifest and reported mcp_server correctly; the MCPServer type was crediting
+    the artifact-type surfaces with a server that does not exist.'
+
+apis:
+- aid: campaignmonitor:campaign-monitor-api
+  name: Campaign Monitor API
+  description: REST API for managing email campaigns, subscriber lists, transactional emails, segments, journeys, templates, and campaign performance
+    analytics.
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.campaignmonitor.com/api/
+  baseURL: https://api.createsend.com/api/v3.3/
+  tags:
   - Email Marketing
   - Campaigns
   - Subscribers
   - Transactional Email
   - Segments
-  - Newsletters
-  - Automation
-  - Marketing Automation
+  - Webhook
+  tags_raw:
+  - Email Marketing
+  - Campaigns
+  - Subscribers
+  - Transactional Email
+  - Segments
   - Webhooks
-  - Email Deliverability
-  - Marketing
-apis:
-  - aid: campaignmonitor:campaign-monitor-api
-    name: Campaign Monitor API
-    description: REST API for managing email campaigns, subscriber lists, transactional emails, segments, journeys, templates, and campaign performance analytics.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://www.campaignmonitor.com/api/
-    baseURL: https://api.createsend.com/api/v3.3/
-    tags:
-      - Email Marketing
-      - Campaigns
-      - Subscribers
-      - Transactional Email
-      - Segments
-      - Webhook
-    tags_raw:
-      - Email Marketing
-      - Campaigns
-      - Subscribers
-      - Transactional Email
-      - Segments
-      - Webhooks
-    properties:
-      - type: Documentation
-        url: https://www.campaignmonitor.com/api/v3-3/getting-started/
-      - type: GettingStarted
-        url: https://www.campaignmonitor.com/api/v3-3/getting-started/
-      - type: Authentication
-        url: authentication/campaignmonitor-authentication.yml
-      - type: OAuthScopes
-        url: scopes/campaignmonitor-scopes.yml
-      - type: ErrorCatalog
-        url: errors/campaignmonitor-error-codes.yml
-      - type: DataModel
-        url: data-model/campaignmonitor-data-model.yml
-      - type: Webhooks
-        url: asyncapi/campaignmonitor-webhooks.yml
-      - type: Conventions
-        url: conventions/campaignmonitor-conventions.yml
-    contact:
-      - FN: Campaign Monitor Support
-        url: https://help.campaignmonitor.com/
-common:
-  - type: TrustCenter
-    url: security/campaignmonitor-trust-center.yml
-  - type: VulnerabilityDisclosure
-    url: security/campaignmonitor-vulnerability-disclosure.yml
-  - type: DomainSecurity
-    url: security/campaignmonitor-domain-security.yml
-  - type: Website
-    url: https://www.campaignmonitor.com/
+  properties:
   - type: Documentation
-    url: https://www.campaignmonitor.com/api/
-  - type: GitHubOrg
-    url: https://github.com/campaignmonitor
-  - type: LinkedIn
-    url: https://www.linkedin.com/company/campaign-monitor
-  - type: Blog
-    url: https://www.campaignmonitor.com/blog/
-  - type: Pricing
-    url: https://www.campaignmonitor.com/pricing/
-  - type: StatusPage
-    url: https://status.campaignmonitor.com/
-  - type: X
-    url: https://x.com/campaignmonitor
-  - type: Plans
-    url: plans/campaignmonitor-plans-pricing.yml
-  - type: RateLimits
-    url: rate-limits/campaignmonitor-rate-limits.yml
-  - type: FinOps
-    url: finops/campaignmonitor-finops.yml
-  - type: BlogPosts
-    url: blogs/blogs.json
-  - type: JSONLDContext
-    url: json-ld/campaignmonitor-context.jsonld
-  - type: DeveloperPortal
-    url: https://www.campaignmonitor.com/api/
+    url: https://www.campaignmonitor.com/api/v3-3/getting-started/
   - type: GettingStarted
     url: https://www.campaignmonitor.com/api/v3-3/getting-started/
-  - type: Support
-    url: https://help.campaignmonitor.com/
-  - type: SignUp
-    url: https://www.campaignmonitor.com/signup/
-  - type: Login
-    url: https://login.createsend.com/
-  - type: TermsOfService
-    url: https://www.campaignmonitor.com/policies/#terms-of-use
-  - type: PrivacyPolicy
-    url: https://www.campaignmonitor.com/policies/#privacy-policy
-  - type: Integrations
-    url: https://www.campaignmonitor.com/integrations/
-  - type: Packages
-    url: packages/campaignmonitor-packages.yml
-  - type: SDKs
-    url: packages/campaignmonitor-packages.yml
-  - type: WellKnown
-    url: well-known/campaignmonitor-well-known.yml
-  - type: SecurityTxt
-    url: well-known/campaignmonitor-security.txt
-  - type: Security
-    url: security/campaignmonitor-vulnerability-disclosure.yml
-  - type: Compliance
-    url: conformance/campaignmonitor-conformance.yml
-  - type: Conformance
-    url: conformance/campaignmonitor-conformance.yml
   - type: Authentication
     url: authentication/campaignmonitor-authentication.yml
   - type: OAuthScopes
     url: scopes/campaignmonitor-scopes.yml
-  - type: Conventions
-    url: conventions/campaignmonitor-conventions.yml
   - type: ErrorCatalog
     url: errors/campaignmonitor-error-codes.yml
-  - type: Lifecycle
-    url: lifecycle/campaignmonitor-lifecycle.yml
-  - type: ChangeLog
-    url: changelog/campaignmonitor-changelog.yml
   - type: DataModel
     url: data-model/campaignmonitor-data-model.yml
   - type: Webhooks
     url: asyncapi/campaignmonitor-webhooks.yml
-  - type: X-MCPServerCandidate
-    url: mcp/campaignmonitor-mcp.yml
-    note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate — a tool list derived from the published API contracts, not an existing server. The scorer already read the manifest and reported mcp_server correctly; the MCPServer type was crediting the artifact-type surfaces with a server that does not exist.'
-  - type: LLMsTxt
-    url: llms/campaignmonitor-llms.txt
-maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
-x-enrichment:
-  date: '2026-08-13'
-  status: enriched
-  artifacts_added: 14
-  pass: local-v1
+  - type: Conventions
+    url: conventions/campaignmonitor-conventions.yml
+  contact:
+  - FN: Campaign Monitor Support
+    url: https://help.campaignmonitor.com/
+- aid: campaignmonitor:createsend-soap-api
+  name: Campaign Monitor SOAP API (legacy createsend)
+  description: Legacy ASP.NET SOAP web service still served at api.createsend.com/api/api.asmx, the same host as the REST v3.3 API. Its WSDL (targetNamespace
+    http://api.createsend.com/api/) declares 50 SOAP operations (plus HTTP GET/POST bindings) for subscribers, lists, clients and campaigns, such
+    as AddSubscriberWithCustomFields, Unsubscribe and GetSubscribers. The current developer docs describe only the REST API; the WSDL is saved
+    verbatim as served.
+  humanURL: https://api.createsend.com/api/api.asmx
+  baseURL: https://api.createsend.com/api/api.asmx
+  tags:
+  - Email Marketing
+  - Subscribers
+  - SOAP
+  properties:
+  - type: WSDL
+    url: wsdl/campaignmonitor-createsend-api.wsdl
+  - type: WSDL
+    name: WSDL (provider-hosted)
+    url: https://api.createsend.com/api/api.asmx?wsdl
+- aid: campaignmonitor:campaignmonitor-api
+  name: Campaign Monitor API
+  description: 'Campaign Monitor API as documented publicly: 6 operations. Contract generated from the documentation by API Evangelist (2026-10-21);
+
+    not the provider''s own document.'
+  humanURL: https://www.campaignmonitor.com/api/v3-3/webhooks
+  baseURL: https://api.createsend.com
+  properties:
+  - type: OpenAPI
+    url: openapi/_ae-authored/campaignmonitor-openapi-generated.yml
+    x-provenance: generated
+  - type: JSONSchema
+    url: json-schema/campaignmonitor-post-api-v32-clients-json-request-schema.json
+  - type: JSONSchema
+    url: json-schema/campaignmonitor-post-api-v32-clients-xml-request-schema.json
+  - type: JSONSchema
+    url: json-schema/campaignmonitor-post-deactivate-request-schema.json
+  - type: JSONSchema
+    url: json-schema/campaignmonitor-get-api-apiid-clients-json-response-schema.json
+  - type: JSONSchema
+    url: json-schema/campaignmonitor-get-api-v32-clients-xml-response-schema.json
+
 x-coverage:
   state: covered
   reason: no-machine-readable-spec
-  detail: >-
-    The API is fully public and richly documented in HTML — 117 operations, 240
-    numeric error codes, 12 OAuth permissions and a webhook catalog were all read
-    straight off campaignmonitor.com/api/v3-3/ — but Campaign Monitor publishes
-    no OpenAPI: /openapi.json, /swagger.json, /api-docs and /docs all 404 on
-    api.createsend.com, and there is no MCP server, no AsyncAPI and no agent card.
+  detail: 'The API is fully public and richly documented in HTML — 117 operations, 240 numeric error codes, 12 OAuth permissions and a webhook
+    catalog were all read straight off campaignmonitor.com/api/v3-3/ — but Campaign Monitor publishes no OpenAPI: /openapi.json, /swagger.json,
+    /api-docs and /docs all 404 on api.createsend.com, and there is no MCP server, no AsyncAPI and no agent card.'
   evidence:
-    - url: https://api.createsend.com/openapi.json
-      status: 404
-    - url: https://api.createsend.com/swagger.json
-      status: 404
-    - url: https://www.campaignmonitor.com/api/v3-3/getting-started/
-      status: 200
-    - url: https://www.campaignmonitor.com/.well-known/security.txt
-      status: 200
-    - url: https://www.campaignmonitor.com/.well-known/agent-card.json
-      status: 404
+  - url: https://api.createsend.com/openapi.json
+    status: 404
+  - url: https://api.createsend.com/swagger.json
+    status: 404
+  - url: https://www.campaignmonitor.com/api/v3-3/getting-started/
+    status: 200
+  - url: https://www.campaignmonitor.com/
+    status: 200
+  - url: https://www.campaignmonitor.com/api/v3-3/
+    status: 200
+  - url: https://www.campaignmonitor.com/.well-known/security.txt
+    status: 200
+  - url: https://www.campaignmonitor.com/.well-known/agent-card.json
+    status: 404
   checked: '2026-08-13'
+x-enrichment:
+  date: '2026-10-21'
+  status: enriched
+  artifacts_added: 12
+  pass: modular-v1
+  engine: identity=anthropic,contract=anthropic,surfaces=anthropic,docs=anthropic,regulatory=anthropic

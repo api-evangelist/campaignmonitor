@@ -1,0 +1,152 @@
+generated: '2026-10-21'
+method: derived
+source: the pre-flight dossier, apis.yml pointers, spec servers, well-known, vendors -- nothing fetched here
+generator: derive-hosts.py
+summary:
+  hosts: 11
+  own: 6
+  other_domain: 2
+  platform: 3
+  roles:
+  - api
+  - identity
+  - other
+  - status
+  - support
+  - website
+hosts:
+- host: api.campaignmonitor.com
+  found_by:
+  - contract-discovery
+  types: []
+  serves: []
+  registrable_domain: campaignmonitor.com
+  role: api
+  relation: own
+- host: api.createsend.com
+  found_by:
+  - apis[]
+  - probed
+  - contract-discovery
+  - well-known
+  types: []
+  serves:
+  - api
+  - docs
+  registrable_domain: createsend.com
+  role: api
+  relation: other-domain
+- host: campaignmonitor.com
+  found_by:
+  - probed
+  - site-links
+  - well-known
+  types: []
+  serves: []
+  registrable_domain: campaignmonitor.com
+  role: other
+  relation: own
+- host: github.com
+  found_by:
+  - pointer
+  types:
+  - GitHubOrg
+  serves: []
+  registrable_domain: github.com
+  role: other
+  relation: platform
+- host: help.campaignmonitor.com
+  found_by:
+  - pointer
+  - probed
+  - site-links
+  - docs-index
+  - contract-discovery
+  - well-known
+  types:
+  - Support
+  serves:
+  - docs
+  registrable_domain: campaignmonitor.com
+  role: support
+  relation: own
+- host: login.createsend.com
+  found_by:
+  - pointer
+  - probed
+  - well-known
+  types:
+  - Login
+  serves: []
+  registrable_domain: createsend.com
+  role: identity
+  relation: other-domain
+- host: status.campaignmonitor.com
+  found_by:
+  - pointer
+  - probed
+  - contract-discovery
+  - well-known
+  types:
+  - StatusPage
+  serves: []
+  registrable_domain: campaignmonitor.com
+  role: status
+  relation: own
+- host: tools.campaignmonitor.com
+  found_by:
+  - probed
+  - site-links
+  - well-known
+  types: []
+  serves: []
+  registrable_domain: campaignmonitor.com
+  role: other
+  relation: own
+- host: www.campaignmonitor.com
+  found_by:
+  - pointer
+  - apis[]
+  - probed
+  - docs-index
+  - contract-discovery
+  - well-known
+  - vendor-detect
+  types:
+  - Website
+  - Documentation
+  - Blog
+  - Pricing
+  - DeveloperPortal
+  - APIReference
+  - GettingStarted
+  - SignUp
+  - TermsOfService
+  - PrivacyPolicy
+  - Integrations
+  serves:
+  - docs
+  - cdn
+  - hosting
+  vendor: cloudflare
+  registrable_domain: campaignmonitor.com
+  role: website
+  relation: own
+- host: www.linkedin.com
+  found_by:
+  - pointer
+  types:
+  - LinkedIn
+  serves: []
+  registrable_domain: linkedin.com
+  role: other
+  relation: platform
+- host: x.com
+  found_by:
+  - pointer
+  types:
+  - X
+  serves: []
+  registrable_domain: x.com
+  role: other
+  relation: platform

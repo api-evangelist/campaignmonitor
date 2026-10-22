@@ -1,0 +1,216 @@
+openapi: 3.1.0
+info:
+  title: Campaign Monitor API
+  version: '2026-10-21'
+  description: 'GENERATED FROM DOCUMENTATION by API Evangelist on 2026-10-21: 6 operation(s) read from 4 public documentation page(s) (each operation
+    names its page in x-source). This is not the provider''s published contract; Campaign Monitor has published no machine-readable contract that
+    the pipeline could find. Engine: anthropic.'
+  x-evidence-tiers:
+    code-example: 2
+    documentation: 4
+    pages-with-code: 4
+    pages-read: 4
+  x-generated-from: documentation
+  x-provenance: generated
+  x-authored-by: API Evangelist
+  x-generated: '2026-10-21'
+  x-generator: generate-contract-from-docs.py
+  x-engine: anthropic
+  x-sources:
+  - https://www.campaignmonitor.com/api/v3-3/webhooks
+  - https://www.campaignmonitor.com/api/v3-3/getting-started
+  - https://www.campaignmonitor.com/api/v3-2/getting-started
+  - https://www.campaignmonitor.com/api/v3-2/webhooks
+servers:
+- url: https://api.createsend.com
+paths:
+  /api/v3.2/clients.json:
+    post:
+      operationId: post_api_v3_2_clients_json
+      tags:
+      - Api
+      summary: Create a client with JSON input format.
+      x-source: https://www.campaignmonitor.com/api/v3-3/getting-started
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostApiV32ClientsJsonRequest'
+      responses:
+        '201':
+          description: Success (status as documented)
+      x-evidence:
+        kind: documentation
+  /api/v3.2/clients.xml:
+    get:
+      operationId: get_api_v3_2_clients_xml
+      tags:
+      - Api
+      summary: Get a list of clients in XML format.
+      x-source: https://www.campaignmonitor.com/api/v3-3/getting-started
+      responses:
+        '200':
+          description: Success (status as documented)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetApiV32ClientsXmlResponse'
+      x-evidence:
+        kind: documentation
+    post:
+      operationId: post_api_v3_2_clients_xml
+      tags:
+      - Api
+      summary: Create a client with XML input format.
+      x-source: https://www.campaignmonitor.com/api/v3-3/getting-started
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostApiV32ClientsXmlRequest'
+      responses:
+        '201':
+          description: Success (status as documented)
+      x-evidence:
+        kind: documentation
+  /api/{apiid}/clients.json:
+    get:
+      operationId: get_api_apiid_clients_json
+      tags:
+      - Api
+      summary: Get a list of clients in JSON format.
+      x-source: https://www.campaignmonitor.com/api/v3-3/getting-started
+      parameters:
+      - name: apiid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: pretty
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success (shape read from the example response on the page)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetApiApiidClientsJsonResponse'
+      x-evidence:
+        kind: documentation
+        collapsed_from: 2 example path(s) differing only at apiId
+  /deactivate:
+    post:
+      operationId: post_deactivate
+      tags:
+      - Deactivate
+      summary: Receive webhook notifications when a subscriber in your list is deactivated.
+      x-source: https://www.campaignmonitor.com/api/v3-3/webhooks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostDeactivateRequest'
+      responses:
+        '201':
+          description: Success (status as documented)
+      x-evidence:
+        kind: documentation
+  /subscribe:
+    post:
+      operationId: post_subscribe
+      tags:
+      - Subscribe
+      summary: POST /subscribe
+      x-source: https://www.campaignmonitor.com/api/v3-3/webhooks
+      responses:
+        '201':
+          description: Success (status as documented)
+      x-evidence:
+        kind: code-example
+        language: http
+        snippet: " POST /subscribe HTTP/1.1 \nHost: example.com:80 \nAccept: */* \nContent-Type: application/json \n{ \n \"Events\": [ \n { \n\
+          \ \"CustomFields\": [ \n { \n \"Key\": \"website\", \n \"Value\": \"https://example.org\" \n } \n ], \n \"Date\": \"2010-12-14 11:32:00\"\
+          , \n \"EmailAddress\": \" [email protected] \", \n \"Name\": \"Test Subscriber\", \n \"SignupIPAddress\": \"53.78.123.243\", \n \"Type\"\
+          : \"Subscribe\" \n } \n ], \n \"ListID\": \"96c0bbdaa54760c"
+components:
+  schemas:
+    PostApiV32ClientsJsonRequest:
+      type: object
+      properties:
+        CompanyName:
+          type: string
+        ContactName:
+          type: string
+        EmailAddress:
+          type: string
+        TimeZone:
+          type: string
+        Country:
+          type: string
+      required:
+      - CompanyName
+      - ContactName
+      - EmailAddress
+      - TimeZone
+      - Country
+    GetApiV32ClientsXmlResponse:
+      type: object
+      properties:
+        ClientID:
+          type: string
+        Name:
+          type: string
+    PostApiV32ClientsXmlRequest:
+      type: object
+      properties:
+        CompanyName:
+          type: string
+        ContactName:
+          type: string
+        EmailAddress:
+          type: string
+        TimeZone:
+          type: string
+        Country:
+          type: string
+      required:
+      - CompanyName
+      - ContactName
+      - EmailAddress
+      - TimeZone
+      - Country
+    GetApiApiidClientsJsonResponse:
+      type: object
+      properties:
+        ClientID:
+          type: string
+        Name:
+          type: string
+    PostDeactivateRequest:
+      type: object
+      properties:
+        Events:
+          type: array
+          description: Array of event objects containing deactivation details
+        ListID:
+          type: string
+          description: The ID of the list where the deactivation occurred
+      required:
+      - Events
+      - ListID
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+security:
+- bearer: []
+tags:
+- name: Api
+- name: Deactivate
+- name: Subscribe

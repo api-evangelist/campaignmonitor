@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/campaignmonitor/main/json-schema/campaignmonitor-post-api-v32-clients-json-request-schema.json",
+  "title": "PostApiV32ClientsJsonRequest",
+  "x-generated": "2026-10-21",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/_ae-authored/campaignmonitor-openapi-generated.yml#/components/schemas/PostApiV32ClientsJsonRequest",
+  "type": "object",
+  "properties": {
+    "CompanyName": {
+      "type": "string"
+    },
+    "ContactName": {
+      "type": "string"
+    },
+    "EmailAddress": {
+      "type": "string"
+    },
+    "TimeZone": {
+      "type": "string"
+    },
+    "Country": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "CompanyName",
+    "ContactName",
+    "EmailAddress",
+    "TimeZone",
+    "Country"
+  ]
+}
