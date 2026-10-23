@@ -18,6 +18,9 @@ checked:
 - https://n8n.io/integrations/campaignmonitor/
 - https://zapier.com/apps/campaign-monitor/integrations
 - https://zapier.com/apps/campaignmonitor/integrations
+- https://ifttt.com/campaign_monitor
+- https://ifttt.com/explore/services
+- https://ifttt.com/sitemap_services.xml
 summary: null
 marketplace_apps:
 - marketplace: zapier
@@ -585,6 +588,31 @@ edges:
   direction: third-party
   category: Microsoft
   partner_url: https://zapier.com/office.com
+- partner_name: IFTTT
+  partner: ifttt
+  partner_match: aggregator
+  type: marketplace
+  marketplace: ifttt-services
+  channel: ipaas-listing
+  relationship: ipaas-bridge
+  direction: third-party
+  evidence: https://ifttt.com/campaign_monitor
+  category: null
+  contract_reference:
+    register: IFTTT service directory (ifttt.com/explore/services; ifttt.com/<service>)
+    spec_file: null
+    role: ipaas-connector:ifttt
+    registered_name: Campaign Monitor
+    matched_domain: campaignmonitor.com
+    matched_by: domain
+    app_slug: campaign_monitor
+    ifttt_category: Business tools
+    builder: unknown (the service page does not say who built it)
+    detected_by: sweep-ifttt-services.py
+    detected: '2026-10-23'
+    signal_note: one edge per (provider, platform); triggers, actions and applet counts are context, never read
+  detected_by: sweep-ifttt-services.py
+  first_seen: '2026-10-23'
 templates:
 - title: Add Campaign Monitor subscribers with new Leadpages form submissions
   url: https://zapier.com/apps/campaign-monitor/integrations/leadpages/962417/add-campaign-monitor-subscribers-with-new-leadpages-form-submissions
