@@ -123,44 +123,6 @@ plans:
   - Custom volume pricing
   price: Contact sales
   price_text: Custom pricing tailored to your volume and goals.
-x-canonical:
-  generated: '2026-10-08'
-  vocabulary: all/0-working/economics/plans-canonical.yml
-  models:
-  - free
-  - subscription
-  units: []
-  plans:
-  - name: Free Trial
-    access: other
-    model: free
-    model_how: derived
-    units: []
-    periods: []
-  - name: Lite
-    access: other
-    model: subscription
-    model_how: derived
-    units: []
-    periods: []
-  - name: Essentials
-    access: other
-    model: subscription
-    model_how: derived
-    units: []
-    periods: []
-  - name: Premier
-    access: other
-    model: subscription
-    model_how: derived
-    units: []
-    periods: []
-  - name: Enterprise
-    access: other
-    model: free
-    model_how: derived
-    units: []
-    periods: []
 audience: business-product
 pricing_basis: tiered-subscription
 published: true
@@ -176,3 +138,41 @@ add_ons:
 discounts:
 - Annual purchase option with a 10% discount
 - Nonprofit 15% discount
+x-canonical:
+  generated: '2026-10-23'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - free
+  - negotiated
+  units: []
+  plans:
+  - name: Free Trial
+    access: other
+    model: free
+    model_how: derived
+    units: []
+    periods: []
+  - name: Lite
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: Essentials
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: Premier
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: Enterprise
+    access: other
+    model: negotiated
+    model_how: derived
+    units: []
+    periods: []
