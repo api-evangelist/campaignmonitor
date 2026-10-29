@@ -1,4 +1,4 @@
-# Campaign Monitor (campaignmonitor)
+# Campaign Monitor
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,57 +64,158 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Campaign Monitor is an email marketing platform with a REST API for managing campaigns, subscriber lists, transactional emails, segments, and accessing campaign performance analytics. The API (v3.3) is hosted at `https://api.createsend.com/api/v3.3/` and supports both API key and OAuth 2.0 authentication. Official SDK wrappers are available for PHP, Ruby, .NET, Python, Java, Perl, and Objective-C via the [campaignmonitor GitHub organization](https://github.com/campaignmonitor).
+Campaign Monitor, a Marigold brand, is an email marketing platform for marketers and agencies. Its REST API — served under the original createsend name at api.createsend.com/api/v3.3 — manages clients, subscriber lists, subscribers and custom fields, segments, campaigns, HTML templates, automated journeys, authenticated sending domains and transactional email, and returns per-recipient reporting for opens, clicks, bounces, unsubscribes and spam complaints. Authentication is OAuth 2.0 with twelve coarse permissions, or an API key over HTTP Basic. Per-list webhooks push Subscribe, Update and Deactivate events. Campaign Monitor publishes no OpenAPI, no AsyncAPI and no MCP server; the contract is HTML reference documentation plus seven official client libraries.
 
-APIs.json: https://raw.githubusercontent.com/api-evangelist/campaignmonitor/refs/heads/main/apis.yml
+**Areas:** Email Marketing · Campaigns · Subscribers · Transactional Email · Segments · Newsletters · Automation · Marketing Automation · Webhook · Email Deliverability · Marketing
 
-Naftiko: https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=campaignmonitor-api-evangelist&utm_content=repo
+## Campaign Monitor on APIs.io
 
-## Tags
+Everything profiled for Campaign Monitor is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/campaignmonitor/](https://apis.io/providers/campaignmonitor/)** — or go straight to one of the APIs or properties below.
 
-- Email Marketing
-- Campaigns
-- Subscribers
-- Transactional Email
-- Segments
-- Newsletters
-- Automation
+### APIs (3)
 
-## APIs
+- [Campaign Monitor API](https://apis.io/apis/campaignmonitor/campaign-monitor-api/) — REST API for managing email campaigns, subscriber lists, transactional emails, segments, journeys, templates, and campaign performance analytics.
+- [Campaign Monitor SOAP API (legacy createsend)](https://apis.io/apis/campaignmonitor/createsend-soap-api/) — Legacy ASP.NET SOAP web service still served at api.createsend.com/api/api.asmx, the same host as the REST v3.3 API. Its WSDL (targetNamespace…
+- [Campaign Monitor API](https://apis.io/apis/campaignmonitor/campaignmonitor-api/) — Campaign Monitor API as documented publicly: 6 operations. Contract generated from the documentation by API Evangelist (2026-10-21); not the provider's own…
 
-### Campaign Monitor API
+### Published properties
 
-REST API covering ten primary areas: Account, Campaigns, Clients, Journeys, Lists, Segments, Subscribers, Templates, Transactional, and Webhooks. Responses are available in JSON or XML (transactional endpoints are JSON only).
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-- **Base URL:** https://api.createsend.com/api/v3.3/
-- **Documentation:** https://www.campaignmonitor.com/api/
-- **Authentication:** API Key (HTTP Basic Auth) or OAuth 2.0
-- **GitHub SDKs:** https://github.com/campaignmonitor
+#### AsyncAPI (1)
 
-## Plans, Rate Limits, and FinOps
+Event-driven and webhook contracts.
 
-- **Plans/Pricing:** [plans/campaignmonitor-plans-pricing.yml](plans/campaignmonitor-plans-pricing.yml) — Five tiers: Free Trial, Lite ($13/mo), Essentials ($31/mo), Premier ($171/mo), Enterprise (custom). All priced by active contact count.
-- **Rate Limits:** [rate-limits/campaignmonitor-rate-limits.yml](rate-limits/campaignmonitor-rate-limits.yml) — Rate limiting applies to `/transactional` endpoints; HTTP 429 on exceeded limits with `X-RateLimit-*` headers.
-- **FinOps:** [finops/campaignmonitor-finops.yml](finops/campaignmonitor-finops.yml) — FOCUS-aligned cost tracking covering contact-based billing, send limits, and cost optimization strategies.
+- [Campaignmonitor Webhooks](https://apis.io/asyncapis/campaignmonitor/campaignmonitor-webhooks/)
 
-## Timestamps
+#### MCP servers (1)
 
-- **Created:** 2026-06-13
-- **Modified:** 2026-06-13
+Model Context Protocol servers that expose the API to agents.
 
-## Common
+- [campaignmonitor](https://apis.io/servers/campaignmonitor/campaignmonitor/)
 
-| Type | URL |
-|------|-----|
-| Website | https://www.campaignmonitor.com/ |
-| Documentation | https://www.campaignmonitor.com/api/ |
-| GitHub Org | https://github.com/campaignmonitor |
-| LinkedIn | https://www.linkedin.com/company/campaign-monitor |
-| Blog | https://www.campaignmonitor.com/blog/ |
-| Pricing | https://www.campaignmonitor.com/pricing/ |
-| Status Page | https://status.campaignmonitor.com/ |
-| X | https://x.com/campaignmonitor |
+#### JSON Schema (5)
 
-## Maintainers
+The data models the API reads and writes.
 
-- **Kin Lane** — kin@apievangelist.com
+- [GetApiApiidClientsJsonResponse](https://apis.io/schemas/campaignmonitor/campaignmonitor-get-api-apiid-clients-json-response/)
+- [GetApiV32ClientsXmlResponse](https://apis.io/schemas/campaignmonitor/campaignmonitor-get-api-v32-clients-xml-response/)
+- [PostApiV32ClientsJsonRequest](https://apis.io/schemas/campaignmonitor/campaignmonitor-post-api-v32-clients-json-request/)
+- [PostApiV32ClientsXmlRequest](https://apis.io/schemas/campaignmonitor/campaignmonitor-post-api-v32-clients-xml-request/)
+- [PostDeactivateRequest](https://apis.io/schemas/campaignmonitor/campaignmonitor-post-deactivate-request/)
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Campaignmonitor Context](https://apis.io/jsonld/campaignmonitor/campaignmonitor-context/)
+
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [Campaign Monitor API Rules](https://apis.io/rules/campaignmonitor/campaignmonitor-rules/)
+
+#### Security (4)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Campaignmonitor Authentication](https://apis.io/security/campaignmonitor/campaignmonitor-authentication/)
+- [Campaignmonitor Domain Security](https://apis.io/security/campaignmonitor/campaignmonitor-domain-security/)
+- [Campaignmonitor Trust Center](https://apis.io/security/campaignmonitor/campaignmonitor-trust-center/)
+- [Campaignmonitor Vulnerability Disclosure](https://apis.io/security/campaignmonitor/campaignmonitor-vulnerability-disclosure/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Campaignmonitor Scopes](https://apis.io/scopes/campaignmonitor/campaignmonitor-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Campaignmonitor Plans Pricing](https://apis.io/plans/campaignmonitor/campaignmonitor-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Campaignmonitor Rate Limits](https://apis.io/rate-limits/campaignmonitor/campaignmonitor-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Campaignmonitor Finops](https://apis.io/finops/campaignmonitor/campaignmonitor-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.campaignmonitor.com/)
+- [Documentation](https://www.campaignmonitor.com/api/)
+- [Getting started](https://www.campaignmonitor.com/api/v3-3/getting-started/)
+- [API reference](https://www.campaignmonitor.com/api/v3-3/)
+- [Pricing](https://www.campaignmonitor.com/pricing/)
+- [Sign up](https://www.campaignmonitor.com/signup/)
+- [Support](https://help.campaignmonitor.com/)
+- [Blog](https://www.campaignmonitor.com/blog/)
+- [Terms of service](https://www.campaignmonitor.com/policies/#terms-of-use)
+- [Privacy policy](https://www.campaignmonitor.com/policies/#privacy-policy)
+- [Status](https://status.campaignmonitor.com/)
+
+## API Evangelist rating
+
+**Kin Score 65.2** — strong · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 71.4 |
+| Contract quality | 31.8 |
+| Contract governance | 35.6 |
+| Operational transparency | 84.2 |
+| Developer ergonomics | 64.3 |
+| Access clarity | 92.1 |
+
+**Agent readiness 29.2** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | yes |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 44.2** — Telecommunications
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/campaignmonitor/](https://apis.io/providers/campaignmonitor/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Campaign Monitor: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/campaignmonitor/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
